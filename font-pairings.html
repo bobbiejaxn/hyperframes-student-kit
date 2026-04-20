@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Font Pairing Sheet</title>
+  <style>
+    /* Serif / Editorial */
+    @font-face { font-family: 'Arsenica'; src: url('fonts/Arsenica-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Blacker'; src: url('fonts/Blacker-Pro-Display-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Keratine'; src: url('fonts/Keratine-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Tarif'; src: url('fonts/Tarif-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Calvino'; src: url('fonts/Calvino-Grande-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Calvino'; src: url('fonts/Calvino-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Evans'; src: url('fonts/Evans-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Evans'; src: url('fonts/Evans-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Blackest'; src: url('fonts/Blackest-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Visconte'; src: url('fonts/Visconte-Extrabold.woff2') format('woff2'); font-weight: 800; }
+
+    /* Display */
+    @font-face { font-family: 'Heading Now'; src: url('fonts/Heading-Now-18-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Stinger'; src: url('fonts/Stinger-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Thicker'; src: url('fonts/Thicker-Extrablack.woff2') format('woff2'); font-weight: 900; }
+    @font-face { font-family: 'Thicker'; src: url('fonts/Thicker-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Amazing Slab'; src: url('fonts/Amazing-Slab-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Aristotelica'; src: url('fonts/Aristotelica-Pro-Display-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Coco Gothic'; src: url('fonts/Coco-Gothic-Pro-Alternate-Heavy.woff2') format('woff2'); font-weight: 800; }
+
+    /* Sans body */
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Milligram'; src: url('fonts/Milligram-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Milligram Text'; src: url('fonts/Milligram-Text-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Freitag'; src: url('fonts/Freitag-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Freitag'; src: url('fonts/Freitag-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Malik'; src: url('fonts/Malik-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Malik'; src: url('fonts/Malik-Regular.woff2') format('woff2'); font-weight: 400; }
+
+    /* Mono */
+    @font-face { font-family: 'Codec Pro News'; src: url('fonts/Codec-Pro-News.woff2') format('woff2'); }
+    @font-face { font-family: 'Blacker Mono'; src: url('fonts/Blacker-Mono-Regular.woff2') format('woff2'); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+
+    .page { max-width: 1400px; margin: 0 auto; }
+
+    .header {
+      padding: 40px 60px 30px;
+      border-bottom: 3px solid #fff;
+    }
+    .header-overline {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    }
+    .header-sub {
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    /* Pairing card */
+    .pairing {
+      border-bottom: 1px solid #1a1a1a;
+      padding: 40px 60px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 40px;
+    }
+    .pairing:hover { background: #0a0a0a; }
+
+    .pairing-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pairing-number {
+      font-family: -apple-system, sans-serif;
+      font-size: 48px;
+      font-weight: 200;
+      color: #333;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .pairing-names {
+      font-family: -apple-system, sans-serif;
+      font-size: 11px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .pairing-names strong { color: #999; font-weight: 600; }
+
+    .pairing-content {}
+    .pairing-hed {
+      font-size: 54px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .pairing-body {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #888;
+      max-width: 600px;
+      margin-bottom: 12px;
+    }
+    .pairing-mono {
+      font-size: 12px;
+      color: #555;
+    }
+    .pairing-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .pairing-tag {
+      font-family: -apple-system, sans-serif;
+      font-size: 10px;
+      padding: 2px 8px;
+      border: 1px solid #333;
+      color: #555;
+      letter-spacing: 0.05em;
+    }
+
+    .footer {
+      padding: 40px 60px;
+      font-family: -apple-system, sans-serif;
+      font-size: 12px;
+      color: #444;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="header-overline">Zetafonts Gold Pack 2025 · Dark Canvas Preview</div>
+      <div class="header-title">16 pairings. Pick one.</div>
+      <div class="header-sub">Headline + Body + Mono. All on #000 black. How they'll actually look in your videos.</div>
+    </div>
+
+    <!-- 1. Arsenica + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">01</div>
+        <div class="pairing-names">
+          <strong>Arsenica</strong> Extrabold<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Arsenica', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EDITORIAL</span>
+          <span class="pairing-tag">ELEGANT</span>
+          <span class="pairing-tag">HIGH CONTRAST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Blacker + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">02</div>
+        <div class="pairing-names">
+          <strong>Blacker Pro</strong> Display Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Blacker Mono</strong>
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Blacker', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Blacker Mono', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">DRAMATIC</span>
+          <span class="pairing-tag">SLAB</span>
+          <span class="pairing-tag">FULL FAMILY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Keratine + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">03</div>
+        <div class="pairing-names">
+          <strong>Keratine</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Keratine', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">SHARP</span>
+          <span class="pairing-tag">MODERN</span>
+          <span class="pairing-tag">FASHION</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Calvino Grande + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">04</div>
+        <div class="pairing-names">
+          <strong>Calvino Grande</strong> Extrabold<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Calvino', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">ELEGANT</span>
+          <span class="pairing-tag">LITERARY</span>
+          <span class="pairing-tag">GRANDE DISPLAY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Evans + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">05</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">TRANSITIONAL</span>
+          <span class="pairing-tag">AUTHORITATIVE</span>
+          <span class="pairing-tag">NEWSPAPER</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Blackest + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">06</div>
+        <div class="pairing-names">
+          <strong>Blackest</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Blackest', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">DRAMA</span>
+          <span class="pairing-tag">HEAVY</span>
+          <span class="pairing-tag">CYBER</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Visconte + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">07</div>
+        <div class="pairing-names">
+          <strong>Visconte</strong> Extrabold<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Visconte', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">CLASSIC</span>
+          <span class="pairing-tag">NOBLE</span>
+          <span class="pairing-tag">ITALIANATE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Heading Now + Milligram -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">08</div>
+        <div class="pairing-names">
+          <strong>Heading Now</strong> 18 Heavy<br>
+          <strong>Milligram</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Heading Now', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Milligram', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">CONDENSED</span>
+          <span class="pairing-tag">WIRED FEEL</span>
+          <span class="pairing-tag">ALL SANS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Stinger + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">09</div>
+        <div class="pairing-names">
+          <strong>Stinger</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Stinger', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">IMPACT</span>
+          <span class="pairing-tag">CLEAN</span>
+          <span class="pairing-tag">BOLD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Thicker + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">10</div>
+        <div class="pairing-names">
+          <strong>Thicker</strong> Extrablack<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Thicker', sans-serif; font-weight: 900;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">ULTRA BOLD</span>
+          <span class="pairing-tag">BRUTALIST</span>
+          <span class="pairing-tag">CYBERPUNK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Amazing Slab + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">11</div>
+        <div class="pairing-names">
+          <strong>Amazing Slab</strong> Extrabold<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Amazing Slab', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">SLAB</span>
+          <span class="pairing-tag">MARKETING</span>
+          <span class="pairing-tag">HAS INLINE VARIANT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Aristotelica + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">12</div>
+        <div class="pairing-names">
+          <strong>Aristotelica</strong> Display Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Aristotelica', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">ELEGANT</span>
+          <span class="pairing-tag">GEOMETRIC</span>
+          <span class="pairing-tag">HIGH-END</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Coco Gothic + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">13</div>
+        <div class="pairing-names">
+          <strong>Coco Gothic</strong> Alt Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Coco Gothic', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">FASHION</span>
+          <span class="pairing-tag">GOTHIC</span>
+          <span class="pairing-tag">HAS DARKMODE VARIANT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Freitag + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">14</div>
+        <div class="pairing-names">
+          <strong>Freitag</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Freitag', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EDITORIAL</span>
+          <span class="pairing-tag">HAS DISPLAY XL</span>
+          <span class="pairing-tag">NEWSROOM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Malik + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">15</div>
+        <div class="pairing-names">
+          <strong>Malik</strong> Heavy<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Malik', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">HUMANIST</span>
+          <span class="pairing-tag">WARM</span>
+          <span class="pairing-tag">APPROACHABLE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. Tarif + Codec Pro -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">16</div>
+        <div class="pairing-names">
+          <strong>Tarif</strong> Extrabold<br>
+          <strong>Codec Pro</strong> Regular<br>
+          <strong>Codec Pro News</strong> Mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Tarif', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand ist bereit<span style="color: #555;">.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K
+        </div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">FINANCE</span>
+          <span class="pairing-tag">SERIOUS</span>
+          <span class="pairing-tag">TRADITIONAL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Say the number. e.g. "04" or "pairing 6"<br>
+      Then we pick an accent color (not orange)
+    </div>
+
+  </div>
+</body>
+</html>

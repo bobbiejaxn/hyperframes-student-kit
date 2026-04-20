@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Font Specimen Sheet</title>
+  <style>
+    /* Serif / Editorial */
+    @font-face { font-family: 'Arsenica'; src: url('fonts/Arsenica-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Arsenica'; src: url('fonts/Arsenica-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Blacker'; src: url('fonts/Blacker-Pro-Display-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Blacker'; src: url('fonts/Blacker-Pro-Display-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Keratine'; src: url('fonts/Keratine-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Keratine'; src: url('fonts/Keratine-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Tarif'; src: url('fonts/Tarif-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Tarif'; src: url('fonts/Tarif-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Lovelace'; src: url('fonts/Lovelace-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Lovelace'; src: url('fonts/Lovelace-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Bogart'; src: url('fonts/Bogart-Extrabold.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Bogart'; src: url('fonts/Bogart-Regular.woff2') format('woff2'); font-weight: 400; }
+
+    /* Display / Headlines */
+    @font-face { font-family: 'Heading Now'; src: url('fonts/Heading-Now-18-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Heading Now'; src: url('fonts/Heading-Now-34-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Cocogoose'; src: url('fonts/Cocogoose-Pro-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Cocogoose'; src: url('fonts/Cocogoose-Pro-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Stinger'; src: url('fonts/Stinger-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Stinger'; src: url('fonts/Stinger-Regular.woff2') format('woff2'); font-weight: 400; }
+
+    /* Sans body */
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Milligram'; src: url('fonts/Milligram-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Milligram Text'; src: url('fonts/Milligram-Text-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Eastman'; src: url('fonts/Eastman-Roman-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Eastman'; src: url('fonts/Eastman-Roman-Regular.woff2') format('woff2'); font-weight: 400; }
+
+    /* Mono */
+    @font-face { font-family: 'Codec Pro News'; src: url('fonts/Codec-Pro-News.woff2') format('woff2'); }
+    @font-face { font-family: 'Targa Mono'; src: url('fonts/Targa-Pro-Mono-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Blacker Mono'; src: url('fonts/Blacker-Mono-Regular.woff2') format('woff2'); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: -apple-system, 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 1400px; margin: 0 auto; padding: 40px 60px; }
+
+    .header {
+      border-bottom: 3px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+    .header-overline {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .section { margin-bottom: 60px; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #000;
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+
+    /* Font specimen card */
+    .specimen {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 36px 0;
+    }
+    .specimen:last-child { border-bottom: none; }
+    .specimen-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .specimen-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .specimen-category {
+      font-size: 11px;
+      color: #999;
+    }
+    .specimen-headline {
+      font-size: 56px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .specimen-headline .accent {
+      /* No orange — using pure black for now, you pick the accent */
+      color: #000;
+    }
+    .specimen-body {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+      max-width: 640px;
+    }
+    .specimen-labels {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* Pairing card */
+    .pairing {
+      background: #000;
+      color: #fff;
+      padding: 40px;
+      margin-bottom: 16px;
+      border-radius: 2px;
+    }
+    .pairing-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .pairing-hed {
+      font-size: 48px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .pairing-body {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #999;
+      max-width: 580px;
+    }
+    .pairing-mono {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Number badges */
+    .pick {
+      display: inline-flex;
+      width: 24px;
+      height: 24px;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .pick-outline {
+      display: inline-flex;
+      width: 24px;
+      height: 24px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      color: #999;
+      font-size: 11px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 11px;
+      color: #999;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-top: 3px solid #000;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="header-overline">Zetafonts Gold Pack 2025 · Font Specimen</div>
+      <div class="header-title">Pick your fonts for Resiliently.</div>
+    </div>
+
+    <!-- ========= EDITORIAL SERIF ========= -->
+    <div class="section">
+      <div class="section-label">Editorial Serif — Headlines</div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">1</span> Arsenica</div>
+          <div class="specimen-category">High-contrast serif · Light→ExtraBold · Text variant available</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Arsenica', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Arsenica', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Editorial · Luxury · High contrast · Elegant · Works for cyber insurance authority</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">2</span> Blacker Pro Display</div>
+          <div class="specimen-category">Dramatic slab serif · Light→Heavy · Text + Mono variants</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Blacker', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Blacker', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Magazine · Dramatic · Full family (Display + Text + Mono) · WIRED Display feel</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">3</span> Keratine</div>
+          <div class="specimen-category">Modern serif · Book→Heavy · Fashion-forward</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Keratine', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Keratine', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Fashion · Sharp · Modern serif · Distinctive personality</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">4</span> Tarif</div>
+          <div class="specimen-category">Serious serif · Extralight→Extrabold · Finance, editorial</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Tarif', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Tarif', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Finance · Authoritative · Traditional serif · Serious</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">5</span> Lovelace</div>
+          <div class="specimen-category">Refined serif · Extralight→Extrabold · Script + Text variants</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Lovelace', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Lovelace', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Romantic · Refined · Has script variant · Elegant but maybe too soft for cyber</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">6</span> Bogart</div>
+          <div class="specimen-category">Warm serif · Thin→Black + Alt variant · Lifestyle, editorial</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Bogart', serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Bogart', serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="specimen-labels">Warm · Friendly · Classic · Approachable but lacks edge</div>
+      </div>
+    </div>
+
+    <!-- ========= DISPLAY / SANS HEADLINE ========= -->
+    <div class="section">
+      <div class="section-label">Display Sans — Alternative Headlines</div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">7</span> Heading Now</div>
+          <div class="specimen-category">Purpose-built headline sans · 4 widths × 8 weights · Thin→Heavy</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Heading Now', sans-serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Heading Now', sans-serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren.
+        </div>
+        <div class="specimen-labels">Condensed · Tight tracking · Built for headlines · Very WIRED</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">8</span> Stinger</div>
+          <div class="specimen-category">Impact display · Thin→Heavy · Fit + Wide variants</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Stinger', sans-serif; font-weight: 800;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Stinger', sans-serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren.
+        </div>
+        <div class="specimen-labels">Impact · Bold · Clean · Strong presence</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">9</span> Cocogoose Pro</div>
+          <div class="specimen-category">Rounded geometric · Thin→Bold · Darkmode + Letterpress variants</div>
+        </div>
+        <div class="specimen-headline" style="font-family: 'Cocogoose', sans-serif; font-weight: 700;">
+          Der Preis den <span class="accent">niemand sieht</span>
+        </div>
+        <div class="specimen-body" style="font-family: 'Cocogoose', sans-serif; font-weight: 400;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren.
+        </div>
+        <div class="specimen-labels">Friendly · Rounded · Has darkmode variant · Maybe too soft</div>
+      </div>
+    </div>
+
+    <!-- ========= BODY SANS ========= -->
+    <div class="section">
+      <div class="section-label">Sans — Body Text</div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">A</span> Codec Pro</div>
+          <div class="specimen-category">Geometric sans · Thin→Ultrablack · Inter replacement</div>
+        </div>
+        <div class="specimen-body" style="font-family: 'Codec Pro', sans-serif; font-size: 20px; line-height: 1.7;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet — und wo die Deckungslücken lauern, die niemand erwähnt. <strong style="font-family: 'Codec Pro'; font-weight: 700;">Fettgedruckt für Nachdruck.</strong>
+        </div>
+        <div class="specimen-labels">Clean · Geometric · Full weight range · Best Inter replacement</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">B</span> Milligram</div>
+          <div class="specimen-category">Technical sans · Thin→Extrabold · Macro (display) + Text (body) variants</div>
+        </div>
+        <div class="specimen-body" style="font-family: 'Milligram Text', sans-serif; font-size: 20px; line-height: 1.7;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet — und wo die Deckungslücken lauern, die niemand erwähnt.
+        </div>
+        <div class="specimen-labels">Technical · Precise · Has display variant (Macro) · Data-friendly</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">C</span> Eastman Roman</div>
+          <div class="specimen-category">Corporate sans · Thin→Heavy · Reliable workhorse</div>
+        </div>
+        <div class="specimen-body" style="font-family: 'Eastman', sans-serif; font-size: 20px; line-height: 1.7;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet — und wo die Deckungslücken lauern, die niemand erwähnt.
+        </div>
+        <div class="specimen-labels">Corporate · Professional · Safe choice · Less personality</div>
+      </div>
+    </div>
+
+    <!-- ========= MONO ========= -->
+    <div class="section">
+      <div class="section-label">Monospace — Labels, Stats, Data</div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick">X</span> Codec Pro News</div>
+          <div class="specimen-category">Pairs with Codec Pro body</div>
+        </div>
+        <div style="font-family: 'Codec Pro News', monospace; font-size: 14px; line-height: 2; color: #333;">
+          SÄULE A · REGULIERUNG &amp; UNDERWRITING<br>
+          SCHADENSSUMME: €2.4M · DECKUNG: €5.0M<br>
+          STATUS: ████████░░ PRÜFUNG LÄUFT
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">Y</span> Targa Pro Mono</div>
+          <div class="specimen-category">Editorial mono · Thin→Extrabold</div>
+        </div>
+        <div style="font-family: 'Targa Mono', monospace; font-size: 14px; line-height: 2; color: #333;">
+          SÄULE A · REGULIERUNG &amp; UNDERWRITING<br>
+          SCHADENSSUMME: €2.4M · DECKUNG: €5.0M<br>
+          STATUS: ████████░░ PRÜFUNG LÄUFT
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><span class="pick-outline">Z</span> Blacker Mono</div>
+          <div class="specimen-category">Pairs with Blacker serif · Light→Heavy</div>
+        </div>
+        <div style="font-family: 'Blacker Mono', monospace; font-size: 14px; line-height: 2; color: #333;">
+          SÄULE A · REGULIERUNG &amp; UNDERWRITING<br>
+          SCHADENSSUMME: €2.4M · DECKUNG: €5.0M<br>
+          STATUS: ████████░░ PRÜFUNG LÄUFT
+        </div>
+      </div>
+    </div>
+
+    <!-- ========= PAIRINGS ON DARK ========= -->
+    <div class="section">
+      <div class="section-label">Pairings on Dark Canvas (how they'll look in video)</div>
+
+      <div class="pairing">
+        <div class="pairing-label">Pairing 1 — Arsenica + Codec Pro</div>
+        <div class="pairing-hed" style="font-family: 'Arsenica', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="color: #fff;">Niemand ist bereit.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · STATUS: PRÜFUNG
+        </div>
+      </div>
+
+      <div class="pairing">
+        <div class="pairing-label">Pairing 2 — Blacker + Codec Pro</div>
+        <div class="pairing-hed" style="font-family: 'Blacker', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="color: #fff;">Niemand ist bereit.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Blacker Mono', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · STATUS: PRÜFUNG
+        </div>
+      </div>
+
+      <div class="pairing">
+        <div class="pairing-label">Pairing 3 — Keratine + Codec Pro</div>
+        <div class="pairing-hed" style="font-family: 'Keratine', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="color: #fff;">Niemand ist bereit.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · STATUS: PRÜFUNG
+        </div>
+      </div>
+
+      <div class="pairing">
+        <div class="pairing-label">Pairing 4 — Heading Now + Milligram</div>
+        <div class="pairing-hed" style="font-family: 'Heading Now', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="color: #fff;">Niemand ist bereit.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Milligram Text', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Targa Mono', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · STATUS: PRÜFUNG
+        </div>
+      </div>
+
+      <div class="pairing">
+        <div class="pairing-label">Pairing 5 — Stinger + Codec Pro</div>
+        <div class="pairing-hed" style="font-family: 'Stinger', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="color: #fff;">Niemand ist bereit.</span>
+        </div>
+        <div class="pairing-body" style="font-family: 'Codec Pro', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono" style="font-family: 'Codec Pro News', monospace;">
+          SCHADEN: €2.4M · DECKUNG: €5.0M · STATUS: PRÜFUNG
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Tell me the numbers · e.g. "Pairing 3" or "Headline 2 + Body A + Mono X"<br>
+      Accent color pick still open — orange is out
+    </div>
+
+  </div>
+</body>
+</html>

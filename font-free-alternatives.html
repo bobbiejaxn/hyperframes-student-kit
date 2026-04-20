@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Free Commercial Alternatives</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Figtree:wght@400;700;800&family=Outfit:wght@300;400;700;800&family=Poppins:wght@400;600;700;800;900&family=Urbanist:wght@400;700;800;900&family=Space+Grotesk:wght@400;700&family=DM+Sans:wght@400;500;700&family=Kalam:wght@400;700&family=Caveat:wght@400;700&family=Patrick+Hand&family=Indie+Flower&family=Amatic+SC:wght@400;700&family=Sacramento&family=Architects+Daughter&family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1400px; margin: 0 auto; }
+
+    .header { padding: 48px 60px 32px; border-bottom: 1px solid #1a1a1a; }
+    .header-overline { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: #444; text-transform: uppercase; margin-bottom: 16px; }
+    .header-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .header-sub { font-size: 14px; color: #555; max-width: 700px; line-height: 1.7; }
+    .header-sub strong { color: #888; }
+
+    .role {
+      padding: 36px 60px 12px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .role-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #5ec1ff;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #5ec1ff;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .role-note {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 24px;
+    }
+
+    .specimen {
+      padding: 28px 60px;
+      border-bottom: 1px solid #111;
+    }
+    .specimen:hover { background: #050505; }
+    .specimen-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .specimen-name { font-size: 12px; color: #666; }
+    .specimen-name strong { color: #999; }
+    .specimen-license { font-size: 10px; color: #333; letter-spacing: 0.1em; }
+    .specimen-line {
+      font-size: 56px;
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .specimen-line .blue { color: #5ec1ff; }
+    .specimen-body {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #666;
+      max-width: 580px;
+    }
+    .specimen-body strong { color: #999; }
+    .specimen-mono {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.8;
+    }
+    .specimen-mono .v { color: #5ec1ff; }
+
+    .pick {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      padding: 3px 10px;
+      border: 1px solid #5ec1ff;
+      color: #5ec1ff;
+      margin-top: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pairing {
+      padding: 44px 60px;
+      border-bottom: 1px solid #111;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 40px;
+    }
+    .pairing:hover { background: #050505; }
+    .pairing-meta { display: flex; flex-direction: column; justify-content: center; }
+    .p-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5ec1ff; letter-spacing: 0.15em; margin-bottom: 12px; }
+    .p-names { font-size: 11px; color: #444; line-height: 2; }
+    .p-names strong { color: #666; }
+    .p-names .r { color: #333; font-size: 10px; }
+
+    .p-hed { font-size: 56px; line-height: 0.92; letter-spacing: 0.01em; text-transform: uppercase; margin-bottom: 16px; }
+    .p-hed .blue { color: #5ec1ff; }
+    .p-body { font-size: 16px; line-height: 1.7; color: #666; max-width: 580px; margin-bottom: 12px; }
+    .p-body strong { color: #999; }
+    .p-mono { font-size: 11px; color: #333; letter-spacing: 0.05em; }
+    .p-mono .v { color: #5ec1ff; }
+
+    .anno { margin-top: 14px; padding: 14px 18px; border: 1px solid #1a1a1a; background: #0a0a0a; }
+    .anno-label { font-size: 9px; color: #333; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+    .anno-val { font-weight: 700; font-size: 28px; }
+
+    .tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .tag { font-size: 9px; padding: 2px 8px; border: 1px solid #222; color: #444; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .footer { padding: 40px 60px; text-align: center; }
+    .footer-text { font-size: 12px; color: #333; letter-spacing: 0.1em; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="header-overline">Free & Commercial · SIL/Open Font License</div>
+      <div class="header-title">Groot → ? · Freehand → ? · Codec Pro → ?</div>
+      <div class="header-sub">
+        All Google Fonts are <strong>SIL Open Font License</strong> — free for any commercial use including YouTube monetization, merch, everything. No attribution required. Here are the closest matches to the Groot + Freehand + Codec Pro system you picked.
+      </div>
+    </div>
+
+    <!-- ==================== HEADLINE (replaces Groot Heavy) ==================== -->
+    <div class="role">
+      <div class="role-label">01 · Headline — Bold Sans Caps (replaces Groot Heavy)</div>
+      <div class="role-note">Groot is wide, rounded, friendly but authoritative. Looking for: bold weight, slightly wide proportions, good caps.</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Poppins</strong> 800 · Google Fonts · OFL</div>
+        <div class="specimen-license">CLOSEST MATCH</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Poppins', sans-serif; font-weight: 800;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+      <div class="pick">★ closest to groot</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Outfit</strong> 800 · Google Fonts · OFL</div>
+        <div class="specimen-license">CLEAN GEOMETRIC</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Outfit', sans-serif; font-weight: 800;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Urbanist</strong> 900 · Google Fonts · OFL</div>
+        <div class="specimen-license">BOLDEST</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Urbanist', sans-serif; font-weight: 900;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Bricolage Grotesque</strong> 800 · Google Fonts · OFL</div>
+        <div class="specimen-license">MOST PERSONALITY</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Figtree</strong> 800 · Google Fonts · OFL</div>
+        <div class="specimen-license">FRIENDLY</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Figtree', sans-serif; font-weight: 800;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Space Grotesk</strong> 700 · Google Fonts · OFL</div>
+        <div class="specimen-license">TECHY</div>
+      </div>
+      <div class="specimen-line" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700;">
+        NIS2 IST DA.<br>NIEMAND IST <span class="blue">BEREIT.</span>
+      </div>
+    </div>
+
+    <!-- ==================== HANDWRITTEN (replaces Freehand Blockletter) ==================== -->
+    <div class="role">
+      <div class="role-label">02 · Handwritten Accent (replaces Freehand Blockletter)</div>
+      <div class="role-note">Freehand Blockletter is casual, blocky, marker-like. Looking for: readable handwritten, slightly messy, not too precious.</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Kalam</strong> 700 · Google Fonts · OFL</div>
+        <div class="specimen-license">CLOSEST MATCH</div>
+      </div>
+      <div style="font-family: 'Kalam', script; font-weight: 700; font-size: 42px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Kalam', script; font-size: 18px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+      <div class="pick">★ closest to freehand</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Caveat</strong> 700 · Google Fonts · OFL</div>
+        <div class="specimen-license">QUICK NOTE FEEL</div>
+      </div>
+      <div style="font-family: 'Caveat', script; font-weight: 700; font-size: 42px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Caveat', script; font-size: 18px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Patrick Hand</strong> · Google Fonts · OFL</div>
+        <div class="specimen-license">CASUAL MARKER</div>
+      </div>
+      <div style="font-family: 'Patrick Hand', script; font-size: 42px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Patrick Hand', script; font-size: 18px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Architects Daughter</strong> · Google Fonts · OFL</div>
+        <div class="specimen-license">SKETCH FEEL</div>
+      </div>
+      <div style="font-family: 'Architects Daughter', script; font-size: 42px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Architects Daughter', script; font-size: 18px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Indie Flower</strong> · Google Fonts · OFL</div>
+        <div class="specimen-license">PLAYFUL</div>
+      </div>
+      <div style="font-family: 'Indie Flower', script; font-size: 42px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Indie Flower', script; font-size: 18px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Amatic SC</strong> 700 · Google Fonts · OFL</div>
+        <div class="specimen-license">TALL THIN HAND</div>
+      </div>
+      <div style="font-family: 'Amatic SC', script; font-weight: 700; font-size: 52px; margin-bottom: 8px; color: #5ec1ff;">
+        niemand ist bereit.
+      </div>
+      <div style="font-family: 'Amatic SC', script; font-weight: 700; font-size: 22px; color: #5ec1ff;">
+        ← Schaden! ← nicht gedeckt!
+      </div>
+    </div>
+
+    <!-- ==================== BODY (replaces Codec Pro) ==================== -->
+    <div class="role">
+      <div class="role-label">03 · Body Text (replaces Codec Pro)</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>DM Sans</strong> 400 · Google Fonts · OFL</div>
+        <div class="specimen-license">CLEAN GEOMETRIC</div>
+      </div>
+      <div class="specimen-body" style="font-family: 'DM Sans', sans-serif;">
+        Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet — und wo die Deckungslücken lauern.
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Outfit</strong> 400 · Google Fonts · OFL</div>
+        <div class="specimen-license">PALES WITH ITSELF AS HEADLINE</div>
+      </div>
+      <div class="specimen-body" style="font-family: 'Outfit', sans-serif; font-weight: 400;">
+        Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet — und wo die Deckungslücken lauern.
+      </div>
+    </div>
+
+    <!-- ==================== MONO (replaces Codec Pro News) ==================== -->
+    <div class="role">
+      <div class="role-label">04 · Mono — Stats & Labels (replaces Codec Pro News)</div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>JetBrains Mono</strong> 400 · Google Fonts · OFL</div>
+      </div>
+      <div class="specimen-mono" style="font-family: 'JetBrains Mono', monospace;">
+        SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span><br>
+        STATUS: ████████░░ PRÜFUNG LÄUFT
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Fira Code</strong> 400 · Google Fonts · OFL</div>
+      </div>
+      <div class="specimen-mono" style="font-family: 'Fira Code', monospace;">
+        SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span><br>
+        STATUS: ████████░░ PRÜFUNG LÄUFT
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-meta">
+        <div class="specimen-name"><strong>Space Mono</strong> 400 · Google Fonts · OFL</div>
+      </div>
+      <div class="specimen-mono" style="font-family: 'Space Mono', monospace;">
+        SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span><br>
+        STATUS: ████████░░ PRÜFUNG LÄUFT
+      </div>
+    </div>
+
+    <!-- ==================== FULL PAIRINGS ==================== -->
+    <div class="role">
+      <div class="role-label">05 · Ready-Made Pairings</div>
+    </div>
+
+    <!-- A: Poppins + Kalam + DM Sans + JetBrains Mono -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">A</div>
+        <div class="p-names">
+          <strong>Poppins</strong> 800<br><span class="r">headline</span><br><br>
+          <strong>Kalam</strong> 700<br><span class="r">handwritten</span><br><br>
+          <strong>DM Sans</strong> 400<br><span class="r">body</span><br><br>
+          <strong>JetBrains Mono</strong><br><span class="r">mono</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Poppins', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Kalam', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body" style="font-family: 'DM Sans', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="p-mono" style="font-family: 'JetBrains Mono', monospace;">
+          SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span>
+        </div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Kalam', script; font-weight: 700; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">★ BEST MATCH</span><span class="tag">ALL FREE</span><span class="tag">OFL LICENSE</span></div>
+      </div>
+    </div>
+
+    <!-- B: Outfit + Caveat + DM Sans + JetBrains Mono -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">B</div>
+        <div class="p-names">
+          <strong>Outfit</strong> 800<br><span class="r">headline</span><br><br>
+          <strong>Caveat</strong> 700<br><span class="r">handwritten</span><br><br>
+          <strong>DM Sans</strong> 400<br><span class="r">body</span><br><br>
+          <strong>JetBrains Mono</strong><br><span class="r">mono</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Outfit', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Caveat', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body" style="font-family: 'DM Sans', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="p-mono" style="font-family: 'JetBrains Mono', monospace;">
+          SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span>
+        </div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Caveat', script; font-weight: 700; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">CLEAN</span><span class="tag">GEOMETRIC</span><span class="tag">ALL FREE</span></div>
+      </div>
+    </div>
+
+    <!-- C: Bricolage + Kalam + DM Sans + JetBrains Mono -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">C</div>
+        <div class="p-names">
+          <strong>Bricolage Grotesque</strong> 800<br><span class="r">headline</span><br><br>
+          <strong>Kalam</strong> 700<br><span class="r">handwritten</span><br><br>
+          <strong>DM Sans</strong> 400<br><span class="r">body</span><br><br>
+          <strong>JetBrains Mono</strong><br><span class="r">mono</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Kalam', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body" style="font-family: 'DM Sans', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="p-mono" style="font-family: 'JetBrains Mono', monospace;">
+          SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span>
+        </div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Kalam', script; font-weight: 700; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">MOST PERSONALITY</span><span class="tag">UNUSUAL</span><span class="tag">DISTINCTIVE</span></div>
+      </div>
+    </div>
+
+    <!-- D: Urbanist + Patrick Hand + DM Sans + JetBrains Mono -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">D</div>
+        <div class="p-names">
+          <strong>Urbanist</strong> 900<br><span class="r">headline</span><br><br>
+          <strong>Patrick Hand</strong><br><span class="r">handwritten</span><br><br>
+          <strong>DM Sans</strong> 400<br><span class="r">body</span><br><br>
+          <strong>JetBrains Mono</strong><br><span class="r">mono</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Urbanist', sans-serif; font-weight: 900;">
+          NIS2 IST DA.<br><span style="font-family: 'Patrick Hand', script; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body" style="font-family: 'DM Sans', sans-serif;">
+          Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="p-mono" style="font-family: 'JetBrains Mono', monospace;">
+          SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span>
+        </div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Patrick Hand', script; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">HEAVIEST WEIGHT</span><span class="tag">CASUAL MARKER</span><span class="tag">ALL FREE</span></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">All Google Fonts · SIL Open Font License · 100% free for commercial use</div>
+    </div>
+
+  </div>
+</body>
+</html>

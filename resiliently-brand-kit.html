@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Brand Kit v1.0 FINAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700;800&family=Caveat:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-elevated: #111111;
+      --bg-subtle: #1a1a1a;
+      --accent: #5ec1ff;
+      --accent-dim: rgba(94, 193, 255, 0.10);
+      --accent-border: rgba(94, 193, 255, 0.20);
+      --green: #00c559;
+      --green-dim: rgba(0, 197, 89, 0.10);
+      --red: #eb0000;
+      --red-dim: rgba(235, 0, 0, 0.10);
+      --gold: #ffc035;
+      --gold-dim: rgba(255, 192, 53, 0.10);
+      --text: #ffffff;
+      --text-2: #999999;
+      --text-3: #666666;
+      --text-4: #444444;
+      --border: #1a1a1a;
+      --border-2: #2e2e2e;
+      --font-hed: 'Bebas Neue', sans-serif;
+      --font-hand: 'Caveat', cursive;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1200px; margin: 0 auto; padding: 48px 60px; }
+
+    /* === NAV === */
+    .nav {
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand { font-family: var(--font-hed); font-size: 20px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-4); }
+    .nav-links a { color: var(--text-4); text-decoration: none; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-license { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); letter-spacing: 0.1em; }
+
+    /* === HERO === */
+    .hero { padding: 64px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
+    .hero-rubric { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .hero-hed { font-family: var(--font-hed); font-size: 72px; font-weight: 800; line-height: 0.9; letter-spacing: 0.01em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-hed .hand { font-family: var(--font-hand); font-weight: 700; text-transform: none; color: var(--accent); }
+    .hero-dek { font-size: 16px; color: var(--text-3); max-width: 560px; line-height: 1.7; margin-bottom: 16px; }
+    .hero-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); line-height: 2; }
+
+    .section { margin-bottom: 56px; }
+    .section-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-4); padding-bottom: 6px; border-bottom: 2px solid var(--accent); display: inline-block; margin-bottom: 24px; }
+    .section-hed { font-family: var(--font-hed); font-size: 32px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 28px; }
+
+    .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+    /* === COLOR PALETTE === */
+    .palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+    .swatch { border: 1px solid var(--border); }
+    .swatch-color { height: 80px; }
+    .swatch-info { padding: 12px; border-top: 1px solid var(--border); }
+    .swatch-hex { font-family: var(--font-mono); font-size: 12px; color: var(--text-4); margin-bottom: 2px; }
+    .swatch-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .swatch-role { font-size: 11px; color: var(--text-4); line-height: 1.4; }
+    .swatch-var { font-family: var(--font-mono); font-size: 9px; color: var(--accent); margin-top: 4px; }
+
+    /* === TYPOGRAPHY === */
+    .type-row { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .type-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); margin-bottom: 10px; letter-spacing: 0.05em; }
+    .type-specimen { margin-bottom: 6px; }
+
+    /* === COMPONENTS === */
+    .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .comp { border: 1px solid var(--border); padding: 24px; }
+    .comp-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-4); margin-bottom: 16px; }
+
+    .stat-val { font-family: var(--font-hed); font-size: 52px; font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-4); margin-top: 6px; }
+
+    .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .check-row:last-child { border-bottom: none; }
+    .check-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+
+    .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border: 1px solid; letter-spacing: 0.05em; }
+
+    .pullquote { border-left: 3px solid var(--accent); padding: 20px 24px; background: var(--accent-dim); }
+    .pullquote-text { font-family: var(--font-hed); font-size: 22px; font-weight: 600; line-height: 1.3; }
+    .pullquote-text .accent { color: var(--accent); }
+    .pullquote-hand { font-family: var(--font-hand); font-weight: 700; font-size: 20px; color: var(--accent); margin-top: 8px; }
+
+    .warning { border-left: 3px solid var(--red); padding: 20px 24px; background: var(--red-dim); }
+    .warning-label { font-family: var(--font-mono); font-size: 9px; color: var(--red); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+    .warning-text { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+    .warning-text strong { color: var(--red); }
+
+    .scenario { border: 1px solid var(--border); padding: 20px; }
+    .scenario-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .scenario-av { width: 30px; height: 30px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; font-family: var(--font-hed); font-weight: 800; font-size: 12px; color: var(--accent); }
+    .scenario-name { font-weight: 600; font-size: 14px; }
+    .scenario-detail { font-size: 11px; color: var(--text-4); }
+    .scenario-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px; }
+    .scenario-stat { background: var(--bg-subtle); padding: 10px; }
+    .scenario-stat-val { font-family: var(--font-hed); font-weight: 700; font-size: 16px; }
+    .scenario-stat-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .coverage { display: flex; flex-direction: column; gap: 4px; }
+    .cov-row { display: grid; grid-template-columns: 1fr 22px; align-items: center; padding: 6px 10px; font-size: 13px; background: var(--bg-subtle); }
+
+    .anno-demo { padding: 14px 18px; border: 1px solid var(--border); background: var(--bg-card); }
+    .anno-val { font-family: var(--font-hed); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; }
+
+    /* === LAYOUT === */
+    .layout { border: 1px solid var(--border); overflow: hidden; }
+    .layout-canvas { position: relative; width: 100%; height: 300px; background: #000; overflow: hidden; }
+    .layout-mg { position: absolute; left: 32px; top: 24px; right: 280px; bottom: 24px; border: 1px dashed rgba(94,193,255,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .layout-mg-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); letter-spacing: 0.1em; }
+    .layout-face { position: absolute; right: 16px; bottom: 16px; width: 240px; height: 150px; border: 1px solid var(--accent-border); background: var(--bg-elevated); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .layout-face-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); text-align: center; }
+    .layout-zones { padding: 12px; display: flex; gap: 8px; flex-wrap: wrap; background: var(--bg-elevated); border-top: 1px solid var(--border); }
+    .layout-zone { font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; background: var(--bg-subtle); color: var(--text-4); }
+
+    /* === RULES === */
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .rule { padding: 16px; border: 1px solid var(--border); }
+    .rule-num { font-family: var(--font-mono); font-size: 9px; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 4px; }
+    .rule-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+    .rule-desc { font-size: 11px; color: var(--text-4); line-height: 1.5; }
+
+    .footer { text-align: center; padding: 40px 0; font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.15em; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: 48px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div>
+      <div class="nav-brand">Resiliently<span>.</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#components">Components</a>
+      <a href="#layout">Layout</a>
+      <a href="#rules">Rules</a>
+    </div>
+    <a href="resiliently-brand-kit-light.html" style="font-family: var(--font-mono); font-size: 10px; color: var(--accent); text-decoration: none; border: 1px solid var(--accent-border); padding: 3px 10px; letter-spacing: 0.1em; text-transform: uppercase;">Light Mode</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- ==================== HERO ==================== -->
+    <div class="hero">
+      <div class="hero-rubric">Brand Kit v1.0 — Final</div>
+      <div class="hero-hed">
+        Resiliently<span class="hand">.</span>
+      </div>
+      <div class="hero-dek">
+        The price nobody sees. Cybersecurity insurance explained by a senior underwriter. Bebas Neue headlines in caps, Caveat handwritten annotations, DM Sans body, JetBrains Mono for data. All on black.
+      </div>
+      <div class="hero-meta">
+        HEADLINE: Bebas Neue · HANDWRITTEN: Caveat 700 · BODY: DM Sans 400 · MONO: JetBrains Mono 400<br>
+        ACCENT: #5ec1ff · BG: #000 · ALL GOOGLE FONTS · SIL OPEN FONT LICENSE
+      </div>
+    </div>
+
+    <!-- ==================== COLORS ==================== -->
+    <div class="section" id="palette">
+      <div class="section-label">Color System</div>
+      <div class="section-hed">Six Colors, Six Meanings</div>
+      <div class="palette">
+        <div class="swatch">
+          <div class="swatch-color" style="background: #000;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#000000</div>
+            <div class="swatch-name">Black</div>
+            <div class="swatch-role">Canvas. Every frame starts here.</div>
+            <div class="swatch-var">--bg</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: #5ec1ff;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#5ec1ff</div>
+            <div class="swatch-name">Blue</div>
+            <div class="swatch-role">THE accent. Stats, highlights, handwritten annotations, CTAs.</div>
+            <div class="swatch-var">--accent</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: #00c559;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#00c559</div>
+            <div class="swatch-name">Green</div>
+            <div class="swatch-role">Coverage confirmed. Checkmarks. The policy pays out.</div>
+            <div class="swatch-var">--green</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: #eb0000;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#eb0000</div>
+            <div class="swatch-name">Red</div>
+            <div class="swatch-role">Exclusion. Denial. Not covered. Hard stop.</div>
+            <div class="swatch-var">--red</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: #ffc035;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#ffc035</div>
+            <div class="swatch-name">Gold</div>
+            <div class="swatch-role">Authority. Expert take. Premium.</div>
+            <div class="swatch-var">--gold</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: #ffffff;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#ffffff</div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-role">Primary text. Headlines. Maximum contrast on black.</div>
+            <div class="swatch-var">--text</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== TYPOGRAPHY ==================== -->
+    <div class="section" id="type">
+      <div class="section-label">Typography</div>
+      <div class="section-hed">Four Fonts, Four Roles</div>
+
+      <div class="type-row">
+        <div class="type-meta">BEVAS NEUE · HEADLINE · ALWAYS CAPS · Google Fonts · SIL OFL</div>
+        <div class="type-specimen" style="font-family: var(--font-hed); font-size: 64px; line-height: 0.88; text-transform: uppercase; letter-spacing: 0.04em;">
+          THE PRICE NOBODY SEES
+        </div>
+        <div style="font-size: 12px; color: var(--text-4); margin-top: 6px;">Single weight · 56–72px · letter-spacing 0.04em · Always uppercase · Tall, condensed, brutal</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">CAVEAT 700 · HANDWRITTEN ACCENT · ALWAYS LOWERCASE · Google Fonts · SIL OFL</div>
+        <div class="type-specimen" style="font-family: var(--font-hand); font-weight: 700; font-size: 48px; color: var(--accent);">
+          the price nobody sees
+        </div>
+        <div style="font-size: 12px; color: var(--text-4); margin-top: 6px;">700 weight · 36–48px headline / 16–20px annotation · Always lowercase · Casual, human, readable</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">DM SANS 400 · BODY TEXT · Google Fonts · SIL OFL</div>
+        <div class="type-specimen" style="font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: var(--text-2); max-width: 560px;">
+          NIS2 requires companies to implement adequate cybersecurity measures. What this means for your policy — and where the coverage gaps lurk that nobody mentions. <strong style="color: var(--text);">Bold for emphasis.</strong>
+        </div>
+        <div style="font-size: 12px; color: var(--text-4); margin-top: 6px;">400 weight · 16–18px · line-height 1.7 · Clean geometric · Maximum readability on dark</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">JETBRAINS MONO 400 · STATS & LABELS · Google Fonts · SIL OFL</div>
+        <div class="type-specimen" style="font-family: var(--font-mono); font-size: 14px; color: var(--text-3); line-height: 2;">
+          DAMAGE: <span style="color: var(--accent);">€2.4M</span> · COVERAGE: <span style="color: var(--accent);">€5.0M</span> · DEDUCTIBLE: <span style="color: var(--accent);">€250K</span><br>
+          STATUS: ████████░░ REVIEW IN PROGRESS
+        </div>
+        <div style="font-size: 12px; color: var(--text-4); margin-top: 6px;">400–500 weight · 11–14px · letter-spacing 0.05em · Stats, labels, metadata, rubrics</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== COMPONENTS ==================== -->
+    <div class="section" id="components">
+      <div class="section-label">Components</div>
+      <div class="section-hed">Motion Graphics Vocabulary</div>
+      <div class="comp-grid">
+
+        <div class="comp">
+          <div class="comp-label">Stat Counter</div>
+          <div class="stat-val">€2.4M</div>
+          <div class="stat-label">Damage amount</div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Handwritten Annotation</div>
+          <div class="anno-demo">
+            <span class="anno-val">€2.4M </span>
+            <span style="font-family: var(--font-hand); font-weight: 700; font-size: 18px; color: var(--accent);">← damage! </span>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Compliance Checklist</div>
+          <div>
+            <div class="check-row"><span class="check-icon" style="color: var(--green);">✓</span> Risk assessment completed</div>
+            <div class="check-row"><span class="check-icon" style="color: var(--green);">✓</span> Incident response plan</div>
+            <div class="check-row"><span class="check-icon" style="color: var(--accent);">!</span> Encryption partial</div>
+            <div class="check-row"><span class="check-icon" style="color: var(--red);">✗</span> Supply chain not audited</div>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Tags</div>
+          <div class="tag-row">
+            <span class="tag" style="color: var(--accent); border-color: var(--accent);">NIS2</span>
+            <span class="tag" style="color: var(--green); border-color: var(--green);">COVERAGE</span>
+            <span class="tag" style="color: var(--red); border-color: var(--red);">RANSOMWARE</span>
+            <span class="tag" style="color: var(--gold); border-color: var(--gold);">EXPERT</span>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Pullquote</div>
+          <div class="pullquote">
+            <div class="pullquote-text">The coverage gap doesn't come from the incident. It comes from the <span class="accent">deductible nobody questioned.</span></div>
+            <div class="pullquote-hand">← the real problem</div>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Exclusion Warning</div>
+          <div class="warning">
+            <div class="warning-label">Coverage Exclusion</div>
+            <div class="warning-text">Damage from <strong>acts of war</strong> and <strong>state-sanctioned attacks</strong> is excluded from coverage.</div>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Claim Scenario</div>
+          <div class="scenario">
+            <div class="scenario-hdr">
+              <div class="scenario-av">MT</div>
+              <div>
+                <div class="scenario-name">Mittelstand Tech GmbH</div>
+                <div class="scenario-detail">IT Services · 240 staff · Düsseldorf</div>
+              </div>
+            </div>
+            <div class="scenario-stats">
+              <div class="scenario-stat">
+                <div class="scenario-stat-val" style="color: var(--accent);">€1.8M</div>
+                <div class="scenario-stat-label">Damage</div>
+              </div>
+              <div class="scenario-stat">
+                <div class="scenario-stat-val" style="color: var(--green);">€5.0M</div>
+                <div class="scenario-stat-label">Coverage</div>
+              </div>
+              <div class="scenario-stat">
+                <div class="scenario-stat-val" style="color: var(--red);">€250K</div>
+                <div class="scenario-stat-label">Deductible</div>
+              </div>
+              <div class="scenario-stat">
+                <div class="scenario-stat-val" style="color: var(--gold);">73%</div>
+                <div class="scenario-stat-label">Reimbursement</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp">
+          <div class="comp-label">Coverage Grid</div>
+          <div class="coverage">
+            <div class="cov-row" style="border-left: 3px solid var(--green);"><span>Business interruption</span><span style="color: var(--green);">✓</span></div>
+            <div class="cov-row" style="border-left: 3px solid var(--green);"><span>Data recovery</span><span style="color: var(--green);">✓</span></div>
+            <div class="cov-row" style="border-left: 3px solid var(--accent);"><span>Ransom payment</span><span style="color: var(--accent);">~</span></div>
+            <div class="cov-row" style="border-left: 3px solid var(--red);"><span>Reputation loss</span><span style="color: var(--red);">✗</span></div>
+            <div class="cov-row" style="border-left: 3px solid var(--red);"><span>War risk</span><span style="color: var(--red);">✗</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== LAYOUT ==================== -->
+    <div class="section" id="layout">
+      <div class="section-label">Scene Layout</div>
+      <div class="section-hed">16:9 Talking Head</div>
+      <div class="layout">
+        <div class="layout-canvas">
+          <div class="layout-mg">
+            <div style="font-family: var(--font-hed); font-weight: 800; font-size: 24px; text-transform: uppercase; color: rgba(255,255,255,0.12); letter-spacing: 0.01em;">
+              THE PRICE NOBODY SEES
+            </div>
+            <div class="layout-mg-label">MOTION GRAPHICS · left 2/3</div>
+          </div>
+          <div class="layout-face">
+            <div class="layout-face-label">FACE PiP<br>bottom-right<br>1px blue border</div>
+          </div>
+        </div>
+        <div class="layout-zones">
+          <span class="layout-zone">bg: #000</span>
+          <span class="layout-zone">headline: Bebas Neue caps</span>
+          <span class="layout-zone">accent: Caveat handwritten</span>
+          <span class="layout-zone">body: DM Sans</span>
+          <span class="layout-zone">stats: JetBrains Mono</span>
+          <span class="layout-zone">color: #5ec1ff</span>
+          <span class="layout-zone">radius: 0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== RULES ==================== -->
+    <div class="section" id="rules">
+      <div class="section-label">Production Rules</div>
+      <div class="section-hed">Non-Negotiable</div>
+      <div class="rules">
+        <div class="rule">
+          <div class="rule-num">01</div>
+          <div class="rule-title">Bebas Neue always in caps</div>
+          <div class="rule-desc">Every headline, every stat, every label set in Bebas Neue is uppercase. No exceptions. Tall, condensed, brutal. The caps are the authority.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">02</div>
+          <div class="rule-title">Caveat always lowercase</div>
+          <div class="rule-desc">Handwritten annotations are always lowercase. The contrast between ALL CAPS machine and lowercase human IS the brand.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">03</div>
+          <div class="rule-title">Blue is the only accent</div>
+          <div class="rule-desc">#5ec1ff for highlights, stats, handwritten annotations, CTAs. Green/red/gold are semantic (coverage/exclusion/premium). Never decorative.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">04</div>
+          <div class="rule-title">Black canvas, never flat</div>
+          <div class="rule-desc">#000000 is the background. Add depth with #0a0a0a cards and #1a1a1a surfaces. Never use a colored background.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">05</div>
+          <div class="rule-title">Four fonts, four roles</div>
+          <div class="rule-desc">Bebas Neue = headlines. Caveat = handwritten. DM Sans = body. JetBrains Mono = data. Never cross roles. Never add a fifth font.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">06</div>
+          <div class="rule-title">No rounded corners</div>
+          <div class="rule-desc">Sharp edges everywhere. Cards, tags, buttons, PiP. 0px radius. Editorial sharpness, not startup softness.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">07</div>
+          <div class="rule-title">German-first on-screen text</div>
+          <div class="rule-desc">All motion graphics text in German. English only for Pillar B code demos.</div>
+        </div>
+        <div class="rule">
+          <div class="rule-num">08</div>
+          <div class="rule-title">No company names</div>
+          <div class="rule-desc">Never show Zurich, AXA, Allianz, or real client names. Fictitious scenarios only.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Resiliently Brand Kit v1.0 · Bebas Neue + Caveat + DM Sans + JetBrains Mono · #5ec1ff on #000<br>
+      SIL Open Font License · Free for commercial use · April 2026
+    </div>
+
+  </div>
+</body>
+</html>

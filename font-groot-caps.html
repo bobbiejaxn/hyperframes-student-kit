@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Groot Caps + Handwritten</title>
+  <style>
+    @font-face { font-family: 'Groot'; src: url('fonts/Groot-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Groot'; src: url('fonts/Groot-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Groot'; src: url('fonts/Groot-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Groot'; src: url('fonts/Groot-Light.woff2') format('woff2'); font-weight: 300; }
+    @font-face { font-family: 'Groot Bau'; src: url('fonts/Groot-Bau-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Groot Bau'; src: url('fonts/Groot-Bau-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Groot Bau'; src: url('fonts/Groot-Bau-Regular.woff2') format('woff2'); font-weight: 400; }
+
+    @font-face { font-family: 'Radcliffe Hand'; src: url('fonts/Radcliffe-Hand-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Radcliffe Hand'; src: url('fonts/Radcliffe-Hand-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Freehand'; src: url('fonts/Freehand-Blockletter-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Kitten Swash'; src: url('fonts/Kitten-Swash-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Brushstrike'; src: url('fonts/Brushstrike-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Marcovaldo'; src: url('fonts/Marcovaldo-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'A Day Without Sun'; src: url('fonts/A-day-without-sun.woff2') format('woff2'); }
+    @font-face { font-family: 'Advertising Script'; src: url('fonts/Advertising-Script-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Banana Yeti'; src: url('fonts/Banana-Yeti-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Salad'; src: url('fonts/Salad-Regular.woff2') format('woff2'); }
+
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Codec Pro News'; src: url('fonts/Codec-Pro-News.woff2') format('woff2'); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1400px; margin: 0 auto; }
+
+    .header { padding: 48px 60px 32px; border-bottom: 1px solid #1a1a1a; }
+    .header-overline { font-family: 'Codec Pro News', monospace; font-size: 10px; letter-spacing: 0.3em; color: #444; text-transform: uppercase; margin-bottom: 16px; }
+    .header-title { font-family: 'Groot', sans-serif; font-weight: 800; font-size: 64px; line-height: 0.92; letter-spacing: -0.01em; text-transform: uppercase; margin-bottom: 12px; }
+    .header-title .accent { color: #5ec1ff; }
+    .header-title .script { font-family: 'Radcliffe Hand', script; font-weight: 700; text-transform: none; font-size: 56px; }
+    .header-sub { font-family: 'Codec Pro', sans-serif; font-size: 15px; color: #555; max-width: 600px; line-height: 1.6; }
+
+    .pairing {
+      padding: 44px 60px;
+      border-bottom: 1px solid #111;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 40px;
+    }
+    .pairing:hover { background: #050505; }
+    .pairing-meta { display: flex; flex-direction: column; justify-content: center; }
+    .p-num { font-family: 'Codec Pro News', monospace; font-size: 11px; color: #5ec1ff; letter-spacing: 0.15em; margin-bottom: 12px; }
+    .p-names { font-family: 'Codec Pro', sans-serif; font-size: 11px; color: #444; line-height: 2; }
+    .p-names strong { color: #666; font-weight: 600; }
+    .p-names .role { color: #333; font-size: 10px; }
+
+    .p-hed { font-size: 56px; line-height: 0.92; letter-spacing: 0.01em; text-transform: uppercase; margin-bottom: 16px; }
+    .p-hed .accent { color: #5ec1ff; }
+    .p-body { font-family: 'Codec Pro', sans-serif; font-size: 16px; line-height: 1.7; color: #666; max-width: 580px; margin-bottom: 12px; }
+    .p-body strong { color: #999; }
+    .p-mono { font-family: 'Codec Pro News', monospace; font-size: 11px; color: #333; letter-spacing: 0.05em; }
+    .p-mono .v { color: #5ec1ff; }
+
+    .anno { margin-top: 14px; padding: 14px 18px; border: 1px solid #1a1a1a; background: #0a0a0a; }
+    .anno-val { font-weight: 700; font-size: 28px; }
+    .anno-label { font-family: 'Codec Pro News', monospace; font-size: 9px; color: #333; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+
+    .tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .tag { font-family: 'Codec Pro', sans-serif; font-size: 9px; padding: 2px 8px; border: 1px solid #222; color: #444; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .footer { padding: 40px 60px; text-align: center; }
+    .footer-text { font-family: 'Codec Pro', sans-serif; font-size: 12px; color: #333; letter-spacing: 0.1em; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="header-overline">Groot Caps + Handwritten</div>
+      <div class="header-title">
+        DER PREIS DEN<br><span class="script accent">niemand sieht</span>
+      </div>
+      <div class="header-sub">
+        Groot Heavy in caps. Handwritten accent in lowercase. The contrast is the point — machine authority meets human annotation.
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + RADCLIFFE HAND ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">01</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Radcliffe Hand</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span><br><br>
+          <strong>Codec Pro News</strong><br><span class="role">mono</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Radcliffe Hand', script; font-weight: 700; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Radcliffe Hand', script; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">MOST READABLE</span><span class="tag">JOURNALISTIC</span><span class="tag">NATURAL</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + BRUSHSTRIKE ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">02</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Brushstrike</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Brushstrike', script; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Brushstrike', script; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">RAW BRUSH</span><span class="tag">ARTISTIC</span><span class="tag">EDGE</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + FREEHAND ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">03</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Freehand Blockletter</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Freehand', script; font-weight: 700; font-size: 42px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Freehand', script; font-weight: 700; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">BLOCK CAPS</span><span class="tag">MARKER FEEL</span><span class="tag">CASUAL</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + A DAY WITHOUT SUN ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">04</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>A Day Without Sun</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'A Day Without Sun', script; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'A Day Without Sun', script; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">POETIC</span><span class="tag">DELICATE</span><span class="tag">EDITORIAL</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + MARCOVALDO ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">05</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Marcovaldo</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Marcovaldo', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Marcovaldo', script; font-weight: 700; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">ELEGANT</span><span class="tag">ITALIAN</span><span class="tag">REFINED</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + KITTEN SWASH ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">06</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Kitten Swash</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Kitten Swash', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Kitten Swash', script; font-weight: 700; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">FLOURISH</span><span class="tag">BRANDING</span><span class="tag">ELEGANT</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + BANANA YETI ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">07</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Banana Yeti</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Banana Yeti', script; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Banana Yeti', script; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">BOLD BRUSH</span><span class="tag">ENERGETIC</span><span class="tag">FUN</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + ADVERTISING SCRIPT ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">08</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Advertising Script</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Advertising Script', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Advertising Script', script; font-weight: 700; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">RETRO</span><span class="tag">VINTAGE SIGNAGE</span><span class="tag">CLASSIC</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT CAPS + SALAD ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">09</div>
+        <div class="p-names">
+          <strong>Groot</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Salad</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Salad', script; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Salad', script; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">FRESH</span><span class="tag">ORGANIC</span><span class="tag">NATURAL</span></div>
+      </div>
+    </div>
+
+    <!-- ===== NOW: GROOT BAU VERSIONS ===== -->
+    <div style="padding: 36px 60px; border-bottom: 1px solid #1a1a1a; background: #0a0a0a;">
+      <div style="font-family: 'Codec Pro News', monospace; font-size: 10px; letter-spacing: 0.3em; color: #444; text-transform: uppercase; margin-bottom: 8px;">NOW THE BAUHAUS VARIANT</div>
+      <div style="font-family: 'Groot Bau', sans-serif; font-weight: 800; font-size: 36px; text-transform: uppercase; letter-spacing: 0.01em;">
+        GROOT BAU — GEOMETRIC, STRUCTURED, ANGULAR
+      </div>
+    </div>
+
+    <!-- ===== GROOT BAU CAPS + RADCLIFFE HAND ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">10</div>
+        <div class="p-names">
+          <strong>Groot Bau</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Radcliffe Hand</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot Bau', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Radcliffe Hand', script; font-weight: 700; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Radcliffe Hand', script; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">GEOMETRIC</span><span class="tag">STRUCTURED</span><span class="tag">BAUHAUS</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT BAU CAPS + BRUSHSTRIKE ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">11</div>
+        <div class="p-names">
+          <strong>Groot Bau</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Brushstrike</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot Bau', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Brushstrike', script; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Brushstrike', script; font-size: 18px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">STRUCTURED + RAW</span><span class="tag">ORDER + CHAOS</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT BAU CAPS + A DAY WITHOUT SUN ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">12</div>
+        <div class="p-names">
+          <strong>Groot Bau</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>A Day Without Sun</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot Bau', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'A Day Without Sun', script; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'A Day Without Sun', script; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">GEOMETRIC + POETIC</span><span class="tag">STRUCTURE + SOUL</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT BAU CAPS + MARCOVALDO ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">13</div>
+        <div class="p-names">
+          <strong>Groot Bau</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Marcovaldo</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot Bau', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Marcovaldo', script; font-weight: 700; text-transform: none; font-size: 44px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Marcovaldo', script; font-weight: 700; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">GEOMETRIC + ELEGANT</span><span class="tag">SWISS + ITALIAN</span></div>
+      </div>
+    </div>
+
+    <!-- ===== GROOT BAU CAPS + BANANA YETI ===== -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="p-num">14</div>
+        <div class="p-names">
+          <strong>Groot Bau</strong> Heavy<br><span class="role">headline caps</span><br><br>
+          <strong>Banana Yeti</strong><br><span class="role">handwritten</span><br><br>
+          <strong>Codec Pro</strong><br><span class="role">body</span>
+        </div>
+      </div>
+      <div>
+        <div class="p-hed" style="font-family: 'Groot Bau', sans-serif; font-weight: 800;">
+          NIS2 IST DA.<br><span style="font-family: 'Banana Yeti', script; text-transform: none; font-size: 48px; color: #5ec1ff;">niemand ist bereit.</span>
+        </div>
+        <div class="p-body">Die NIS2-Richtlinie verpflichtet <strong>Unternehmen</strong>, angemessene Cybersicherheitsmaßnahmen zu implementieren.</div>
+        <div class="p-mono">SCHADEN: <span class="v">€2.4M</span> · DECKUNG: <span class="v">€5.0M</span> · SELBSTBEHALT: <span class="v">€250K</span></div>
+        <div class="anno">
+          <div class="anno-label">annotation</div>
+          <span class="anno-val">€2.4M </span>
+          <span style="font-family: 'Banana Yeti', script; font-size: 16px; color: #5ec1ff;">← Schaden! </span>
+        </div>
+        <div class="tags"><span class="tag">GEOMETRIC + ENERGETIC</span><span class="tag">ORDER + CHAOS</span></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">say a number · 01–09 = Groot · 10–14 = Groot Bau</div>
+    </div>
+
+  </div>
+</body>
+</html>

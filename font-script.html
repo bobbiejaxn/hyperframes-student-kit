@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — Script & Handwritten Specimen</title>
+  <style>
+    @font-face { font-family: 'Kitten Swash'; src: url('fonts/Kitten-Swash-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Kitten'; src: url('fonts/Kitten-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Kitten Mono'; src: url('fonts/Kitten-Monoline.woff2') format('woff2'); }
+    @font-face { font-family: 'Brushstrike'; src: url('fonts/Brushstrike-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Advertising Script'; src: url('fonts/Advertising-Script-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Advertising Mono'; src: url('fonts/Advertising-Script-Monoline.woff2') format('woff2'); }
+    @font-face { font-family: 'Freehand'; src: url('fonts/Freehand-Blockletter-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Banana Yeti'; src: url('fonts/Banana-Yeti-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Marcovaldo'; src: url('fonts/Marcovaldo-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Salad'; src: url('fonts/Salad-Regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Radcliffe Hand'; src: url('fonts/Radcliffe-Hand-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Radcliffe Hand'; src: url('fonts/Radcliffe-Hand-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'Lovelace Script'; src: url('fonts/Lovelace-Script-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'A Day Without Sun'; src: url('fonts/A-day-without-sun.woff2') format('woff2'); }
+
+    /* Keep Evans + Aristotelica from favorites */
+    @font-face { font-family: 'Evans'; src: url('fonts/Evans-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Evans'; src: url('fonts/Evans-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Aristotelica'; src: url('fonts/Aristotelica-Pro-Display-Heavy.woff2') format('woff2'); font-weight: 800; }
+    @font-face { font-family: 'Codec Pro'; src: url('fonts/Codec-Pro-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Codec Pro News'; src: url('fonts/Codec-Pro-News.woff2') format('woff2'); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+
+    .page { max-width: 1400px; margin: 0 auto; }
+
+    .header {
+      padding: 40px 60px 30px;
+      border-bottom: 3px solid #fff;
+    }
+    .header-overline { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #666; margin-bottom: 8px; }
+    .header-title { font-size: 24px; font-weight: 700; font-family: -apple-system, sans-serif; }
+    .header-sub { font-size: 13px; color: #666; margin-top: 8px; }
+
+    .section {
+      padding: 40px 60px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #444;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #333;
+      display: inline-block;
+      margin-bottom: 28px;
+    }
+
+    /* Script specimen */
+    .specimen {
+      margin-bottom: 36px;
+    }
+    .specimen:last-child { margin-bottom: 0; }
+    .specimen-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .specimen-name { font-family: -apple-system, sans-serif; font-size: 12px; color: #666; }
+    .specimen-name strong { color: #999; }
+    .specimen-tags { display: flex; gap: 6px; }
+    .tag {
+      font-family: -apple-system, sans-serif;
+      font-size: 9px;
+      padding: 2px 6px;
+      border: 1px solid #333;
+      color: #555;
+      letter-spacing: 0.05em;
+    }
+    .specimen-line {
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .specimen-body {
+      font-size: 22px;
+      line-height: 1.5;
+      color: #888;
+      max-width: 600px;
+    }
+
+    /* Pairing cards */
+    .pairing {
+      padding: 40px 60px;
+      border-bottom: 1px solid #1a1a1a;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 40px;
+    }
+    .pairing:hover { background: #0a0a0a; }
+    .pairing-meta { display: flex; flex-direction: column; justify-content: center; }
+    .pairing-number {
+      font-family: -apple-system, sans-serif;
+      font-size: 48px;
+      font-weight: 200;
+      color: #333;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .pairing-names {
+      font-family: -apple-system, sans-serif;
+      font-size: 11px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .pairing-names strong { color: #999; font-weight: 600; }
+    .pairing-hed { font-size: 48px; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .pairing-script {
+      font-size: 36px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .pairing-body {
+      font-family: 'Codec Pro', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #888;
+      max-width: 580px;
+      margin-bottom: 10px;
+    }
+    .pairing-mono {
+      font-family: 'Codec Pro News', monospace;
+      font-size: 12px;
+      color: #555;
+    }
+    .pairing-tags { display: flex; gap: 6px; margin-top: 10px; }
+    .pairing-tag {
+      font-family: -apple-system, sans-serif;
+      font-size: 9px;
+      padding: 2px 6px;
+      border: 1px solid #333;
+      color: #555;
+    }
+
+    .footer {
+      padding: 40px 60px;
+      font-family: -apple-system, sans-serif;
+      font-size: 12px;
+      color: #444;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="header-overline">Script & Handwritten — Zetafonts Gold Pack</div>
+      <div class="header-title">Handwriting on black.</div>
+      <div class="header-sub">Script fonts paired with Evans / Aristotelica. For annotations, callouts, accent words, or as the headline itself.</div>
+    </div>
+
+    <!-- RAW SPECIMENS -->
+    <div class="section">
+      <div class="section-label">Raw Specimens</div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Kitten Swash</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">ELEGANT</span><span class="tag">FLOURISH</span><span class="tag">BRANDING</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Kitten Swash', script;">Der Preis den niemand sieht</div>
+        <div class="specimen-body" style="font-family: 'Kitten Swash', script; font-size: 20px;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen zu angemessenen Maßnahmen.
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Kitten</strong> Regular</div>
+          <div class="specimen-tags"><span class="tag">CLEAN SCRIPT</span><span class="tag">VERSATILE</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Kitten', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Kitten Monoline</strong></div>
+          <div class="specimen-tags"><span class="tag">THIN</span><span class="tag">MODERN</span><span class="tag">MINIMAL</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Kitten Mono', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Brushstrike</strong> Regular</div>
+          <div class="specimen-tags"><span class="tag">BRUSH TEXTURE</span><span class="tag">RAW</span><span class="tag">ARTISTIC</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Brushstrike', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Advertising Script</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">RETRO</span><span class="tag">SIGNAGE</span><span class="tag">CLASSIC</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Advertising Script', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Advertising Script</strong> Monoline</div>
+          <div class="specimen-tags"><span class="tag">THIN</span><span class="tag">RETRO MODERN</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Advertising Mono', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Freehand Blockletter</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">BLOCK CAPS</span><span class="tag">CASUAL</span><span class="tag">BOLD</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Freehand', script;">DER PREIS DEN NIEMAND SIEHT</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Banana Yeti</strong> Regular</div>
+          <div class="specimen-tags"><span class="tag">FUN</span><span class="tag">BOLD BRUSH</span><span class="tag">PLAYFUL</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Banana Yeti', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Marcovaldo</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">ELEGANT</span><span class="tag">ITALIAN</span><span class="tag">REFINED</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Marcovaldo', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Salad</strong> Regular</div>
+          <div class="specimen-tags"><span class="tag">FRESH</span><span class="tag">ORGANIC</span><span class="tag">NATURAL</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Salad', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Radcliffe Hand</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">NATURAL</span><span class="tag">READABLE</span><span class="tag">JOURNALISTIC</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Radcliffe Hand', script; font-weight: 700;">Der Preis den niemand sieht</div>
+        <div class="specimen-body" style="font-family: 'Radcliffe Hand', script; font-size: 18px;">
+          Die NIS2-Richtlinie verpflichtet Unternehmen zu angemessenen Maßnahmen.
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>Lovelace Script</strong> Bold</div>
+          <div class="specimen-tags"><span class="tag">ROMANTIC</span><span class="tag">FLOWING</span><span class="tag">REFINED</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'Lovelace Script', script;">Der Preis den niemand sieht</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <div class="specimen-name"><strong>A Day Without Sun</strong></div>
+          <div class="specimen-tags"><span class="tag">POETIC</span><span class="tag">DELICATE</span><span class="tag">EDITORIAL</span></div>
+        </div>
+        <div class="specimen-line" style="font-family: 'A Day Without Sun', script;">Der Preis den niemand sieht</div>
+      </div>
+    </div>
+
+    <!-- PAIRINGS -->
+    <div class="section">
+      <div class="section-label">Pairings — Script Headline + Serif/Sans Body</div>
+    </div>
+
+    <!-- P17: Evans + Kitten Swash accent -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">17</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>Kitten Swash</strong> accent<br>
+          <strong>Codec Pro</strong> body<br>
+          <strong>Codec Pro News</strong> mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand <span style="font-family: 'Kitten Swash', script; font-weight: 400;">ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EVANS + KITTEN SWASH</span>
+          <span class="pairing-tag">SERIOUS HEADLINE + HANDWRITTEN ACCENT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P18: Aristotelica + Kitten Monoline -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">18</div>
+        <div class="pairing-names">
+          <strong>Aristotelica</strong> Heavy<br>
+          <strong>Kitten Mono</strong> accent<br>
+          <strong>Codec Pro</strong> body<br>
+          <strong>Codec Pro News</strong> mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Aristotelica', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand <span style="font-family: 'Kitten Mono', script;">ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">ARISTOTELICA + KITTEN MONO</span>
+          <span class="pairing-tag">ELEGANT + MINIMAL HANDWRITTEN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P19: Kitten Swash as main headline -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">19</div>
+        <div class="pairing-names">
+          <strong>Kitten Swash</strong> headline<br>
+          <strong>Codec Pro</strong> body<br>
+          <strong>Codec Pro News</strong> mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Kitten Swash', script; font-weight: 700; font-size: 42px;">
+          Der Preis den<br>niemand sieht
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">SCRIPT AS HERO</span>
+          <span class="pairing-tag">BRAND IDENTITY</span>
+          <span class="pairing-tag">DISTINCTIVE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P20: Radcliffe Hand as headline -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">20</div>
+        <div class="pairing-names">
+          <strong>Radcliffe Hand</strong> headline<br>
+          <strong>Codec Pro</strong> body<br>
+          <strong>Codec Pro News</strong> mono
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Radcliffe Hand', script; font-weight: 700;">
+          Der Preis den<br>niemand sieht
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">JOURNALISTIC</span>
+          <span class="pairing-tag">NATURAL</span>
+          <span class="pairing-tag">READABLE SCRIPT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P21: Evans + Brushstrike accent -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">21</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>Brushstrike</strong> accent<br>
+          <strong>Codec Pro</strong> body
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="font-family: 'Brushstrike', script;">Niemand ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EVANS + BRUSHSTRIKE</span>
+          <span class="pairing-tag">AUTHORITY + RAW EDGE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P22: Evans + Marcovaldo accent -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">22</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>Marcovaldo</strong> accent<br>
+          <strong>Codec Pro</strong> body
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand <span style="font-family: 'Marcovaldo', script; font-weight: 700;">ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EVANS + MARCOVALDO</span>
+          <span class="pairing-tag">AUTHORITY + ELEGANT SCRIPT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P23: A Day Without Sun as accent -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">23</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>A Day Without Sun</strong> accent<br>
+          <strong>Codec Pro</strong> body
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="font-family: 'A Day Without Sun', script; font-size: 40px;">niemand ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EVANS + A DAY WITHOUT SUN</span>
+          <span class="pairing-tag">AUTHORITY + POETIC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P24: Evans + Advertising Script -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">24</div>
+        <div class="pairing-names">
+          <strong>Evans</strong> Heavy<br>
+          <strong>Advertising Script</strong> accent<br>
+          <strong>Codec Pro</strong> body
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Evans', serif; font-weight: 800;">
+          NIS2 ist da.<br><span style="font-family: 'Advertising Script', script; font-weight: 700;">Niemand ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">EVANS + ADVERTISING SCRIPT</span>
+          <span class="pairing-tag">AUTHORITY + RETRO SIGNAGE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P25: Aristotelica + Lovelace Script -->
+    <div class="pairing">
+      <div class="pairing-meta">
+        <div class="pairing-number">25</div>
+        <div class="pairing-names">
+          <strong>Aristotelica</strong> Heavy<br>
+          <strong>Lovelace Script</strong> accent<br>
+          <strong>Codec Pro</strong> body
+        </div>
+      </div>
+      <div class="pairing-content">
+        <div class="pairing-hed" style="font-family: 'Aristotelica', sans-serif; font-weight: 800;">
+          NIS2 ist da.<br>Niemand <span style="font-family: 'Lovelace Script', script; font-weight: 700;">ist bereit</span>
+        </div>
+        <div class="pairing-body">
+          Die NIS2-Richtlinie verpflichtet Unternehmen, angemessene Cybersicherheitsmaßnahmen zu implementieren. Was das für Ihre Police bedeutet.
+        </div>
+        <div class="pairing-mono">SCHADEN: €2.4M · DECKUNG: €5.0M · SELBSTBEHALT: €250K</div>
+        <div class="pairing-tags">
+          <span class="pairing-tag">ARISTOTELICA + LOVELACE</span>
+          <span class="pairing-tag">HIGH-END + FLOWING</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Three ways to use script:<br>
+      1. As the main headline (19, 20) · 2. As an accent word inside a serif headline (17, 18, 21–25) · 3. For annotations and callouts<br><br>
+      Say the number
+    </div>
+
+  </div>
+</body>
+</html>
