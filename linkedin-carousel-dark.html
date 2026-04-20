@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resiliently — LinkedIn Carousel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --accent: #5ec1ff;
+      --red: #eb0000;
+      --text: #fff;
+      --text-2: #aaa;
+      --text-3: #666;
+      --text-4: #444;
+      --font-hed: 'Bebas Neue', sans-serif;
+      --font-hand: 'Caveat', cursive;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080808; font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+    .top-bar {
+      max-width: 1400px; margin: 0 auto; padding: 30px 40px 10px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .top-bar h1 { font-family: var(--font-hed); font-size: 28px; letter-spacing: 0.04em; color: #fff; text-transform: uppercase; }
+    .top-bar p { font-size: 12px; color: #555; margin-top: 2px; }
+    .top-bar .tag { font-family: var(--font-mono); font-size: 9px; color: var(--accent); border: 1px solid rgba(94,193,255,0.2); padding: 3px 10px; letter-spacing: 0.15em; }
+
+    .grid {
+      max-width: 1400px; margin: 0 auto; padding: 20px 40px 60px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;
+    }
+
+    .card { position: relative; }
+    .card-label {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #444; margin-bottom: 6px;
+      display: flex; justify-content: space-between;
+    }
+
+    .slide {
+      width: 100%; aspect-ratio: 1/1; background: #000; color: #fff;
+      position: relative; overflow: hidden; border: 1px solid #1a1a1a;
+    }
+    .slide:hover { border-color: var(--accent); }
+
+    .num { position: absolute; bottom: 8px; right: 10px; font-family: var(--font-mono); font-size: 9px; color: #1a1a1a; letter-spacing: 0.1em; }
+
+    /* giant watermark text */
+    .watermark {
+      position: absolute; font-family: var(--font-hed); text-transform: uppercase;
+      letter-spacing: 0.06em; pointer-events: none;
+    }
+
+    /* diagonal stripe */
+    .stripe {
+      position: absolute; width: 200%; height: 60px;
+      transform: rotate(-12deg); transform-origin: left center;
+    }
+
+    /* grid overlay */
+    .grid-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(94,193,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94,193,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* glitch bar */
+    .glitch-bar {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: var(--accent); opacity: 0.6;
+    }
+
+    /* cross marker */
+    .cross {
+      position: absolute; font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+    }
+
+    /* ============================================
+       SLIDE DESIGNS
+       ============================================ */
+
+    /* --- 01: COVER — Giant text breach --- */
+    .s01 .watermark-main {
+      top: -20px; left: -10px; right: -10px;
+      font-size: 140px; line-height: 0.85; color: #fff;
+    }
+    .s01 .watermark-main .accent { color: var(--accent); }
+    .s01 .stripe-top { top: 0; background: var(--accent); }
+    .s01 .hand { position: absolute; bottom: 30px; left: 30px; font-family: var(--font-hand); font-weight: 700; font-size: 28px; color: var(--accent); transform: rotate(-3deg); }
+    .s01 .eyebrow { position: absolute; top: 20px; right: 20px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; writing-mode: vertical-rl; }
+    .s01 .brand-sm { position: absolute; bottom: 10px; right: 14px; font-family: var(--font-hed); font-size: 14px; letter-spacing: 0.06em; color: #222; text-transform: uppercase; }
+
+    /* --- 02: STAT — Number fills the frame --- */
+    .s02 { display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; }
+    .s02 .giant { font-family: var(--font-hed); font-size: 160px; line-height: 0.8; color: var(--accent); letter-spacing: -0.01em; }
+    .s02 .unit { font-family: var(--font-hed); font-size: 60px; color: rgba(94,193,255,0.3); letter-spacing: 0.04em; margin-top: -4px; }
+    .s02 .context { font-size: 13px; color: var(--text-3); line-height: 1.5; max-width: 280px; margin-top: 12px; }
+    .s02 .hand-arrow { position: absolute; top: 30px; right: 30px; font-family: var(--font-hand); font-weight: 700; font-size: 22px; color: var(--accent); transform: rotate(8deg); }
+    .s02 .up-badge {
+      position: absolute; top: 30px; left: 30px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--red);
+      border: 2px solid var(--red); padding: 4px 12px;
+      transform: rotate(-6deg);
+    }
+
+    /* --- 03: PROBLEM — Crossed out --- */
+    .s03 { display: flex; flex-direction: column; padding: 30px; }
+    .s03 .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--red); text-transform: uppercase; margin-bottom: 12px; }
+    .s03 .big-text {
+      font-family: var(--font-hed); font-size: 72px; line-height: 0.88;
+      letter-spacing: 0.03em; text-transform: uppercase; color: #fff;
+      position: relative;
+    }
+    .s03 .strike-through {
+      position: absolute; top: 50%; left: -10px; right: -10px; height: 6px;
+      background: var(--red); transform: rotate(-2deg);
+    }
+    .s03 .reveal { font-family: var(--font-hed); font-size: 72px; line-height: 0.88; color: var(--red); letter-spacing: 0.03em; margin-top: 8px; }
+    .s03 .body { font-size: 13px; color: var(--text-3); line-height: 1.6; margin-top: auto; max-width: 300px; }
+    .s03 .glitch-top { top: 80px; }
+    .s03 .glitch-bottom { bottom: 120px; }
+
+    /* --- 04: CHECKLIST — Terminal style --- */
+    .s04 { padding: 30px; display: flex; flex-direction: column; }
+    .s04 .terminal-header {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+      padding-bottom: 10px; border-bottom: 1px solid #1a1a1a;
+    }
+    .s04 .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .s04 .terminal-title { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.1em; margin-left: 8px; }
+    .s04 .hed { font-family: var(--font-hed); font-size: 44px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; line-height: 0.9; }
+    .s04 .items { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .s04 .item {
+      font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
+      padding: 8px 12px; background: #0a0a0a; border-left: 3px solid;
+    }
+    .s04 .item.ok { border-color: var(--accent); }
+    .s04 .item.warn { border-color: var(--accent); }
+    .s04 .item.fail { border-color: var(--red); }
+    .s04 .item .icon { font-weight: 700; margin-right: 8px; }
+    .s04 .item.ok .icon { color: var(--accent); }
+    .s04 .item.warn .icon { color: var(--accent); }
+    .s04 .item.fail .icon { color: var(--red); }
+
+    /* --- 05: VS — Split screen --- */
+    .s05 { display: grid; grid-template-rows: auto 1fr; }
+    .s05 .top-bar-inner {
+      padding: 20px 24px 12px; border-bottom: 1px solid #1a1a1a;
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase;
+    }
+    .s05 .cols { display: grid; grid-template-columns: 1fr 1fr; }
+    .s05 .col { padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .s05 .col:first-child { border-right: 1px solid #1a1a1a; }
+    .s05 .col-hed {
+      font-family: var(--font-hed); font-size: 28px; letter-spacing: 0.04em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .s05 .col.covered .col-hed { color: var(--accent); }
+    .s05 .col.red .col-hed { color: var(--red); }
+    .s05 .col-item {
+      font-size: 11px; color: var(--text-2); padding: 6px 0;
+      border-top: 1px solid #1a1a1a; display: flex; align-items: center; gap: 8px;
+    }
+    .s05 .col-item .bullet { font-weight: 700; font-size: 10px; }
+    .s05 .col.covered .bullet { color: var(--accent); }
+    .s05 .col.red .bullet { color: var(--red); }
+    .s05 .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: var(--font-hed); font-size: 32px; color: #fff;
+      letter-spacing: 0.06em; background: #000; padding: 8px 14px;
+      border: 2px solid var(--accent); z-index: 2;
+    }
+    .s05 .hand-vs { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); font-family: var(--font-hand); font-weight: 700; font-size: 16px; color: var(--accent); }
+
+    /* --- 06: QUOTE — Full bleed text --- */
+    .s06 { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
+    .s06 .watermark-bg {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-8deg);
+      font-family: var(--font-hed); font-size: 200px; color: #0a0a0a; letter-spacing: 0.06em;
+      text-transform: uppercase; white-space: nowrap; pointer-events: none;
+    }
+    .s06 .quote {
+      font-family: var(--font-hed); font-size: 52px; line-height: 0.95;
+      letter-spacing: 0.04em; text-transform: uppercase; position: relative;
+    }
+    .s06 .quote .accent { color: var(--accent); }
+    .s06 .hand { font-family: var(--font-hand); font-weight: 700; font-size: 24px; color: var(--accent); margin-top: 16px; transform: rotate(-2deg); }
+    .s06 .attr { font-family: var(--font-mono); font-size: 9px; color: var(--text-4); letter-spacing: 0.15em; margin-top: 20px; text-transform: uppercase; }
+    .s06 .glitch { top: 60px; }
+
+    /* --- 07: PILLARS — Stacked brutal cards --- */
+    .s07 { padding: 24px; display: flex; flex-direction: column; }
+    .s07 .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+    .s07 .hed { font-family: var(--font-hed); font-size: 48px; letter-spacing: 0.04em; text-transform: uppercase; line-height: 0.9; margin-bottom: 16px; }
+    .s07 .cards { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .s07 .p-card {
+      display: grid; grid-template-columns: 48px 1fr; gap: 12px;
+      padding: 14px; background: #0a0a0a; border-left: 3px solid var(--accent);
+      align-items: center;
+    }
+    .s07 .p-card:nth-child(2) { border-color: var(--accent); }
+    .s07 .p-card:nth-child(3) { border-color: var(--red); }
+    .s07 .p-num { font-family: var(--font-hed); font-size: 36px; letter-spacing: 0.04em; line-height: 1; }
+    .s07 .p-card:nth-child(1) .p-num { color: var(--accent); }
+    .s07 .p-card:nth-child(2) .p-num { color: var(--accent); }
+    .s07 .p-card:nth-child(3) .p-num { color: var(--red); }
+    .s07 .p-title { font-weight: 700; font-size: 12px; margin-bottom: 2px; }
+    .s07 .p-desc { font-size: 10px; color: var(--text-4); line-height: 1.4; }
+
+    /* --- 08: SCENARIO — Evidence board --- */
+    .s08 { padding: 24px; display: flex; flex-direction: column; }
+    .s08 .tape {
+      position: absolute; top: -1px; left: 30%; right: 30%; height: 14px;
+      background: var(--accent); opacity: 0.5;
+    }
+    .s08 .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-top: 10px; margin-bottom: 8px; }
+    .s08 .hed { font-family: var(--font-hed); font-size: 44px; letter-spacing: 0.04em; text-transform: uppercase; line-height: 0.9; margin-bottom: 14px; }
+    .s08 .evidence {
+      border: 1px solid #1a1a1a; padding: 14px; background: #0a0a0a;
+      transform: rotate(0.5deg); margin-bottom: 8px;
+    }
+    .s08 .ev-name { font-family: var(--font-hed); font-size: 24px; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .s08 .ev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .s08 .ev-stat { padding: 8px; background: #000; }
+    .s08 .ev-val { font-family: var(--font-hed); font-size: 22px; letter-spacing: 0.04em; }
+    .s08 .ev-label { font-family: var(--font-mono); font-size: 8px; color: var(--text-4); letter-spacing: 0.15em; text-transform: uppercase; }
+    .s08 .verdict {
+      border-left: 3px solid var(--accent); padding: 12px;
+      background: rgba(94,193,255,0.05); margin-top: auto;
+    }
+    .s08 .verdict p { font-size: 11px; color: var(--text-2); line-height: 1.5; }
+    .s08 .verdict strong { color: var(--accent); }
+
+    /* --- 09: TIMELINE — Chaos cascade --- */
+    .s09 { padding: 24px; display: flex; flex-direction: column; }
+    .s09 .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
+    .s09 .hed { font-family: var(--font-hed); font-size: 44px; letter-spacing: 0.04em; text-transform: uppercase; line-height: 0.9; margin-bottom: 14px; }
+    .s09 .steps { display: flex; flex-direction: column; gap: 0; flex: 1; position: relative; }
+    .s09 .step {
+      display: flex; gap: 12px; padding: 7px 0; position: relative;
+    }
+    .s09 .step-line {
+      position: absolute; left: 15px; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--red));
+    }
+    .s09 .step:last-child .step-line { display: none; }
+    .s09 .step-dot {
+      width: 30px; height: 30px; flex-shrink: 0; display: flex;
+      align-items: center; justify-content: center;
+      font-family: var(--font-hed); font-size: 14px; letter-spacing: 0.04em;
+      border: 1px solid var(--accent); color: var(--accent);
+      position: relative; z-index: 1; background: #000;
+    }
+    .s09 .step:nth-child(4) .step-dot { border-color: var(--red); color: var(--red); }
+    .s09 .step:last-child .step-dot { border-color: var(--red); color: #000; background: var(--red); }
+    .s09 .step-body { flex: 1; }
+    .s09 .step-time { font-family: var(--font-mono); font-size: 9px; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 1px; }
+    .s09 .step-title { font-weight: 600; font-size: 11px; margin-bottom: 1px; }
+    .s09 .step-desc { font-size: 9px; color: var(--text-4); line-height: 1.3; }
+    .s09 .hand-tl { position: absolute; top: 20px; right: 20px; font-family: var(--font-hand); font-weight: 700; font-size: 16px; color: var(--red); transform: rotate(4deg); }
+
+    /* --- 10: CTA — Breach the frame --- */
+    .s10 { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; }
+    .s10 .corner-tl, .s10 .corner-br {
+      position: absolute; width: 40px; height: 40px;
+    }
+    .s10 .corner-tl { top: 16px; left: 16px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+    .s10 .corner-br { bottom: 16px; right: 16px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+    .s10 .hand-top { font-family: var(--font-hand); font-weight: 700; font-size: 26px; color: var(--accent); margin-bottom: 16px; transform: rotate(-2deg); }
+    .s10 .brand {
+      font-family: var(--font-hed); font-size: 72px; letter-spacing: 0.06em;
+      text-transform: uppercase; line-height: 0.9;
+    }
+    .s10 .brand .dot { color: var(--accent); }
+    .s10 .sub { font-size: 13px; color: var(--text-3); max-width: 280px; line-height: 1.5; margin: 12px 0 20px; }
+    .s10 .handle { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; }
+    .s10 .hand-bottom { position: absolute; bottom: 40px; font-family: var(--font-hand); font-weight: 700; font-size: 18px; color: var(--text-4); transform: rotate(1deg); }
+
+    /* --- 11: BONUS — Ticker / Scroller --- */
+    .s11 { display: flex; flex-direction: column; justify-content: center; padding: 0; overflow: hidden; }
+    .s11 .ticker-wrap { overflow: hidden; white-space: nowrap; }
+    .s11 .ticker {
+      display: inline-block; animation: ticker 20s linear infinite;
+      font-family: var(--font-hed); font-size: 80px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #1a1a1a;
+    }
+    .s11 .ticker .accent { color: var(--accent); }
+    .s11 .ticker .red { color: var(--red); }
+    .s11 .ticker .accent2 { color: var(--accent); }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .s11 .center-block {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      text-align: center; z-index: 2; background: #000; padding: 20px 30px;
+      border: 2px solid var(--accent);
+    }
+    .s11 .center-hed { font-family: var(--font-hed); font-size: 48px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .s11 .center-sub { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; }
+
+    /* --- 12: BONUS — Warning stamp --- */
+    .s12 { display: flex; justify-content: center; align-items: center; }
+    .s12 .stamp {
+      font-family: var(--font-hed); font-size: 80px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--red);
+      border: 6px solid var(--red); padding: 30px 40px;
+      transform: rotate(-8deg); text-align: center; line-height: 0.9;
+      opacity: 0.9;
+    }
+    .s12 .sub-stamp {
+      position: absolute; bottom: 30px; left: 30px; right: 30px;
+      font-size: 12px; color: var(--text-3); line-height: 1.5; text-align: center;
+    }
+    .s12 .hand-warn {
+      position: absolute; top: 24px; right: 30px;
+      font-family: var(--font-hand); font-weight: 700; font-size: 20px;
+      color: var(--red); transform: rotate(6deg);
+    }
+
+    /* --- 13: BONUS — Grid of stats --- */
+    .s13 { display: grid; grid-template-rows: auto 1fr; }
+    .s13 .top { padding: 20px 24px; border-bottom: 1px solid #1a1a1a; }
+    .s13 .tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; }
+    .s13 .hed { font-family: var(--font-hed); font-size: 32px; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 6px; }
+    .s13 .stat-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .s13 .stat-cell {
+      padding: 16px; border-top: 1px solid #1a1a1a;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .s13 .stat-cell:nth-child(odd) { border-right: 1px solid #1a1a1a; }
+    .s13 .stat-val { font-family: var(--font-hed); font-size: 48px; letter-spacing: 0.04em; line-height: 1; }
+    .s13 .stat-label { font-family: var(--font-mono); font-size: 8px; color: var(--text-4); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
+
+    /* --- 14: BONUS — Terminal prompt --- */
+    .s14 {
+      display: flex; flex-direction: column; padding: 20px;
+      font-family: var(--font-mono); background: #000;
+    }
+    .s14 .prompt-bar {
+      display: flex; gap: 6px; margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .s14 .p-dot { width: 8px; height: 8px; }
+    .s14 .p-title { font-size: 10px; color: var(--text-4); margin-left: 8px; letter-spacing: 0.1em; }
+    .s14 .output { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .s14 .line { font-size: 11px; color: var(--text-3); line-height: 1.6; }
+    .s14 .line .cmd { color: var(--accent); }
+    .s14 .line .flag { color: var(--accent); }
+    .s14 .line .val { color: var(--text); }
+    .s14 .line .err { color: var(--red); }
+    .s14 .line .warn { color: var(--accent); }
+    .s14 .cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .s14 .big-result {
+      margin-top: auto; padding-top: 12px; border-top: 1px solid #1a1a1a;
+      font-family: var(--font-hed); font-size: 56px; letter-spacing: 0.04em; color: var(--red);
+    }
+    .s14 .big-label {
+      font-family: var(--font-mono); font-size: 9px; color: var(--text-4);
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div>
+      <h1>LinkedIn Carousel</h1>
+      <p>14 slides. 1080×1080. Print to PDF → Upload to LinkedIn.</p>
+    </div>
+    <div class="tag">Bebas Neue · Caveat · DM Sans · JetBrains Mono</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- ===== 01: COVER ===== -->
+    <div class="card">
+      <div class="card-label"><span>01 · Cover</span></div>
+      <div class="slide s01">
+        <div class="watermark-main">THE<br>PRICE<br><span class="accent">NOBODY</span><br>SEES</div>
+        <div class="stripe stripe-top"></div>
+        <div class="hand">the real cost ↓</div>
+        <div class="eyebrow">Cyber Insurance</div>
+        <div class="brand-sm">Resiliently.</div>
+        <div class="num">01/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 02: STAT ===== -->
+    <div class="card">
+      <div class="card-label"><span>02 · Stat Shock</span></div>
+      <div class="slide s02">
+        <div class="up-badge">↑ 62% YoY</div>
+        <div class="hand-arrow">← really?!</div>
+        <div class="giant">€2.4M</div>
+        <div class="unit">AVERAGE RANSOM</div>
+        <div class="context">Most mid-market companies carry €5M limits. But deductibles haven't kept pace with demand growth.</div>
+        <div class="num">02/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 03: PROBLEM ===== -->
+    <div class="card">
+      <div class="card-label"><span>03 · Problem</span></div>
+      <div class="slide s03">
+        <div class="tag">The Problem</div>
+        <div class="big-text">
+          YOU'RE<br>COVERED
+          <div class="strike-through"></div>
+        </div>
+        <div class="reveal">YOU'RE NOT</div>
+        <div class="body">Most cyber policies were written before ransomware became industrialized. The gaps aren't small — they're structural.</div>
+        <div class="glitch-bar glitch-top"></div>
+        <div class="glitch-bar glitch-bottom"></div>
+        <div class="num">03/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 04: CHECKLIST ===== -->
+    <div class="card">
+      <div class="card-label"><span>04 · Terminal Checklist</span></div>
+      <div class="slide s04">
+        <div class="terminal-header">
+          <div class="dot" style="background:var(--red)"></div>
+          <div class="dot" style="background:var(--accent)"></div>
+          <div class="dot" style="background:var(--accent)"></div>
+          <div class="terminal-title">NIS2-COMPLIANCE-CHECK.sh</div>
+        </div>
+        <div class="hed">WHAT YOUR POLICY ACTUALLY COVERS</div>
+        <div class="items">
+          <div class="item ok"><span class="icon">✓</span> Incident response plan — covered</div>
+          <div class="item ok"><span class="icon">✓</span> Business interruption — 72hr wait</div>
+          <div class="item warn"><span class="icon">!</span> Regulatory fines — partial only</div>
+          <div class="item ok"><span class="icon">✓</span> Data recovery & forensics</div>
+          <div class="item fail"><span class="icon">✗</span> Supply chain cascade — EXCLUDED</div>
+          <div class="item fail"><span class="icon">✗</span> Reputation & brand damage</div>
+          <div class="item warn"><span class="icon">!</span> Ransom payment — approval req'd</div>
+        </div>
+        <div class="num">04/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 05: VS SPLIT ===== -->
+    <div class="card">
+      <div class="card-label"><span>05 · Coverage vs Exclusion</span></div>
+      <div class="slide s05">
+        <div class="top-bar-inner">Coverage vs Exclusion</div>
+        <div class="cols">
+          <div class="col covered">
+            <div class="col-hed">Covered</div>
+            <div class="col-item"><span class="bullet">✓</span> Business interruption</div>
+            <div class="col-item"><span class="bullet">✓</span> Data recovery</div>
+            <div class="col-item"><span class="bullet">✓</span> Forensic investigation</div>
+            <div class="col-item"><span class="bullet">✓</span> Legal defense</div>
+            <div class="col-item"><span class="bullet">✓</span> Notification costs</div>
+          </div>
+          <div class="col red">
+            <div class="col-hed">Excluded</div>
+            <div class="col-item"><span class="bullet">✗</span> Acts of war</div>
+            <div class="col-item"><span class="bullet">✗</span> Intentional misconduct</div>
+            <div class="col-item"><span class="bullet">✗</span> Prior known incidents</div>
+            <div class="col-item"><span class="bullet">✗</span> Reputation loss</div>
+            <div class="col-item"><span class="bullet">✗</span> Unencrypted data</div>
+          </div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="hand-vs">read the fine print</div>
+        <div class="num">05/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 06: QUOTE ===== -->
+    <div class="card">
+      <div class="card-label"><span>06 · Quote</span></div>
+      <div class="slide s06">
+        <div class="watermark-bg">GAP</div>
+        <div class="glitch-bar glitch" style="top:55px;"></div>
+        <div class="quote">THE GAP ISN'T THE INCIDENT.<br><span class="accent">IT'S THE DEDUCTIBLE<br>NOBODY QUESTIONED.</span></div>
+        <div class="hand">← nobody asks this</div>
+        <div class="attr">Mike Guiao · Senior Underwriter Cyber · @resiliently</div>
+        <div class="num">06/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 07: PILLARS ===== -->
+    <div class="card">
+      <div class="card-label"><span>07 · Three Pillars</span></div>
+      <div class="slide s07">
+        <div class="tag">What I Cover</div>
+        <div class="hed">THREE ANGLES</div>
+        <div class="cards">
+          <div class="p-card">
+            <div class="p-num">01</div>
+            <div>
+              <div class="p-title">Regulation & Underwriting</div>
+              <div class="p-desc">NIS2, DORA, cyber policy structure. German-first.</div>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-num">02</div>
+            <div>
+              <div class="p-title">Agentic Cybersecurity</div>
+              <div class="p-desc">AI agents for risk, detection, claims. English.</div>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-num">03</div>
+            <div>
+              <div class="p-title">Ransomware Decoded</div>
+              <div class="p-desc">Real incidents, real numbers. German-first.</div>
+            </div>
+          </div>
+        </div>
+        <div class="num">07/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 08: SCENARIO ===== -->
+    <div class="card">
+      <div class="card-label"><span>08 · Case Study</span></div>
+      <div class="slide s08">
+        <div class="tape"></div>
+        <div class="tag">Case File</div>
+        <div class="hed">REAL CLAIM,<br>REAL NUMBERS</div>
+        <div class="evidence">
+          <div class="ev-name">MITTELSTAND TECH GMBH</div>
+          <div class="ev-grid">
+            <div class="ev-stat">
+              <div class="ev-val" style="color:var(--accent)">€1.8M</div>
+              <div class="ev-label">Damage</div>
+            </div>
+            <div class="ev-stat">
+              <div class="ev-val" style="color:var(--accent)">€5.0M</div>
+              <div class="ev-label">Coverage</div>
+            </div>
+            <div class="ev-stat">
+              <div class="ev-val" style="color:var(--red)">€250K</div>
+              <div class="ev-label">Deductible</div>
+            </div>
+            <div class="ev-stat">
+              <div class="ev-val" style="color:var(--accent)">73%</div>
+              <div class="ev-label">Reimbursement</div>
+            </div>
+          </div>
+        </div>
+        <div class="verdict">
+          <p><strong>Policy paid out.</strong> But €250K deductible + 90-day BI waiting period burned through cash reserves first. <strong>Coverage wasn't the problem. Cash flow timing was.</strong></p>
+        </div>
+        <div class="num">08/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 09: TIMELINE ===== -->
+    <div class="card">
+      <div class="card-label"><span>09 · Incident Timeline</span></div>
+      <div class="slide s09">
+        <div class="tag">72 Hours</div>
+        <div class="hed">THAT BROKE<br>A COMPANY</div>
+        <div class="steps">
+          <div class="step"><div class="step-line"></div><div class="step-dot">0</div><div class="step-body"><div class="step-time">HOUR 0</div><div class="step-title">Phishing → CFO credentials compromised</div><div class="step-desc">Attacker gains VPN access undetected.</div></div></div>
+          <div class="step"><div class="step-line"></div><div class="step-dot">12</div><div class="step-body"><div class="step-time">HOUR 12</div><div class="step-title">Lateral movement, domain admin lost</div><div class="step-desc">Backup servers encrypted. No restore point.</div></div></div>
+          <div class="step"><div class="step-line"></div><div class="step-dot">36</div><div class="step-body"><div class="step-time">HOUR 36</div><div class="step-title">LockBit 4.0 ransom: €1.8M</div><div class="step-desc">Double extortion. Data exfiltrated.</div></div></div>
+          <div class="step"><div class="step-line"></div><div class="step-dot">48</div><div class="step-body"><div class="step-time">HOUR 48</div><div class="step-title">Insurer notified, claims process starts</div><div class="step-desc">72hr BI waiting period begins. No payout yet.</div></div></div>
+          <div class="step"><div class="step-dot">72</div><div class="step-body"><div class="step-time">HOUR 72</div><div class="step-title" style="color:var(--red)">Cash reserves exhausted</div><div class="step-desc">Can't meet payroll. Insolvency risk.</div></div></div>
+        </div>
+        <div class="hand-tl">time kills ↑</div>
+        <div class="num">09/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 10: CTA ===== -->
+    <div class="card">
+      <div class="card-label"><span>10 · CTA</span></div>
+      <div class="slide s10">
+        <div class="corner-tl"></div>
+        <div class="corner-br"></div>
+        <div class="hand-top">follow for more ↓</div>
+        <div class="brand">RESILIENTLY<span class="dot">.</span></div>
+        <div class="sub">Cyber insurance explained by an underwriter who reads the fine print.</div>
+        <div class="handle">@resiliently</div>
+        <div class="hand-bottom">not financial advice. just insurance truth.</div>
+        <div class="num">10/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 11: TICKER ===== -->
+    <div class="card">
+      <div class="card-label"><span>11 · Ticker</span></div>
+      <div class="slide s11">
+        <div class="ticker-wrap">
+          <div class="ticker">
+            RANSOMWARE <span class="accent">↑</span> COVERAGE <span class="accent">↓</span> DEDUCTIBLE <span class="red">✗</span> EXCLUSION <span class="accent">!</span> REGULATION <span class="red">€</span> &nbsp;&nbsp;&nbsp;
+            RANSOMWARE <span class="accent">↑</span> COVERAGE <span class="accent">↓</span> DEDUCTIBLE <span class="red">✗</span> EXCLUSION <span class="accent">!</span> REGULATION <span class="red">€</span> &nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+        <div class="center-block">
+          <div class="center-hed">STAY ALERT</div>
+          <div class="center-sub">The threat landscape never sleeps</div>
+        </div>
+        <div class="num">11/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 12: WARNING STAMP ===== -->
+    <div class="card">
+      <div class="card-label"><span>12 · Warning Stamp</span></div>
+      <div class="slide s12">
+        <div class="stamp">NOT<br>COVERED</div>
+        <div class="hand-warn">← check your policy!</div>
+        <div class="sub-stamp">Acts of war, state-sanctioned attacks, and infrastructure failure are standard exclusions in every cyber policy. Know what's not covered before you need it.</div>
+        <div class="num">12/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 13: STAT GRID ===== -->
+    <div class="card">
+      <div class="card-label"><span>13 · Stat Grid</span></div>
+      <div class="slide s13">
+        <div class="top">
+          <div class="tag">Market Data 2026</div>
+          <div class="hed">THE NUMBERS</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-cell">
+            <div class="stat-val" style="color:var(--accent)">€2.4M</div>
+            <div class="stat-label">Avg ransom demand</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val" style="color:var(--accent)">78%</div>
+            <div class="stat-label">SMEs with cyber cover</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val" style="color:var(--red)">32d</div>
+            <div class="stat-label">Avg claim resolution</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val" style="color:var(--accent)">€15B</div>
+            <div class="stat-label">Global cyber premium</div>
+          </div>
+        </div>
+        <div class="num">13/14</div>
+      </div>
+    </div>
+
+    <!-- ===== 14: TERMINAL ===== -->
+    <div class="card">
+      <div class="card-label"><span>14 · Terminal</span></div>
+      <div class="slide s14">
+        <div class="prompt-bar">
+          <div class="p-dot" style="background:var(--red)"></div>
+          <div class="p-dot" style="background:var(--accent)"></div>
+          <div class="p-dot" style="background:var(--accent)"></div>
+          <div class="p-title">claim-analysis.py</div>
+        </div>
+        <div class="output">
+          <div class="line"><span class="cmd">$</span> cyber-claim <span class="flag">--analyze</span> <span class="val">mitglied-tech-gmbh.json</span></div>
+          <div class="line"><span class="cmd">$</span> Loading policy... <span class="val">✓</span></div>
+          <div class="line"><span class="cmd">$</span> Incident type: <span class="warn">RANSOMWARE</span></div>
+          <div class="line"><span class="cmd">$</span> Damage: <span class="val">€1,800,000</span></div>
+          <div class="line"><span class="cmd">$</span> Coverage limit: <span class="val">€5,000,000</span></div>
+          <div class="line"><span class="cmd">$</span> Deductible: <span class="warn">€250,000</span></div>
+          <div class="line"><span class="cmd">$</span> BI waiting period: <span class="err">72 hours</span></div>
+          <div class="line"><span class="cmd">$</span> Supply chain exclusion: <span class="err">ACTIVE</span></div>
+          <div class="line"><span class="cmd">$</span> War risk carve-out: <span class="err">ACTIVE</span></div>
+          <div class="line"><span class="cmd">$</span> Reimbursement: <span class="val">73%</span></div>
+          <div class="line"><span class="cmd">$</span> <span class="err">WARN: Cash flow gap at hour 48</span><span class="cursor"></span></div>
+        </div>
+        <div>
+          <div class="big-result">€486K GAP</div>
+          <div class="big-label">unrecovered loss after claim</div>
+        </div>
+        <div class="num">14/14</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="max-width:1400px;margin:0 auto;padding:30px 40px;text-align:center;font-family:var(--font-mono);font-size:9px;color:#333;letter-spacing:0.15em;text-transform:uppercase;border-top:1px solid #1a1a1a;">
+    RESILIENTLY CAROUSEL v1.0 · 14 SLIDES · 1080×1080 · BEBAS NEUE + CAVEAT + DM SANS + JETBRAINS MONO · PRINT TO PDF → UPLOAD TO LINKEDIN
+  </div>
+
+</body>
+</html>

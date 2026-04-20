@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Carousel — Visual Verification</title>
+  <style>
+    body { margin: 0; background: #222; font-family: system-ui; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-bottom: 4px solid #333; }
+    .pair iframe { width: 100%; height: 800vh; border: none; }
+    .label { position: sticky; top: 0; z-index: 10; padding: 8px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+    .label.dark-label { background: #000; color: #5ec1ff; }
+    .label.light-label { background: #fff; color: #0077b6; }
+    .col-header { position: sticky; top: 0; z-index: 10; }
+  </style>
+</head>
+<body>
+  <div style="display:flex; justify-content:center; padding:16px; font-family:system-ui;">
+    <div style="font-size:12px; color:#666; letter-spacing:0.1em;">VISUAL VERIFICATION — DARK vs LIGHT — Scroll both sides</div>
+  </div>
+  <div class="pair">
+    <div>
+      <div class="col-header"><div class="label dark-label">Dark Mode · #000 bg · #5ec1ff</div></div>
+      <iframe src="linkedin-carousel-dark.html"></iframe>
+    </div>
+    <div>
+      <div class="col-header"><div class="label light-label">Light Mode · #fff bg · #0077b6</div></div>
+      <iframe src="linkedin-carousel-light.html"></iframe>
+    </div>
+  </div>
+</body>
+</html>

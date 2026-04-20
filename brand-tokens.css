@@ -1,39 +1,34 @@
 /* ===================================================================
-   RESILIENTLY BRAND TOKENS v1.0
+   RESILIENTLY BRAND TOKENS v1.1 — Simplified
    
    Fonts: Google Fonts, SIL Open Font License
    Bebas Neue (headline caps) · Caveat 700 (handwritten) 
    DM Sans 400 (body) · JetBrains Mono 400 (mono)
    
-   Accent: #5ec1ff (blue) · Canvas: #000 (black)
+   TWO COLORS. Blue = accent. Red = danger/exclusion.
+   Everything else is black/white/gray.
    =================================================================== */
 
 :root {
-  /* === COLORS === */
+  /* === CANVAS (dark mode) === */
   --bg: #000000;
   --bg-card: #0a0a0a;
-  --bg-elevated: #111111;
   --bg-subtle: #1a1a1a;
 
+  /* === ACCENT — THE one color === */
   --accent: #5ec1ff;
   --accent-dim: rgba(94, 193, 255, 0.10);
-  --accent-border: rgba(94, 193, 255, 0.20);
 
-  --green: #00c559;
-  --green-dim: rgba(0, 197, 89, 0.10);
+  /* === DANGER — the only semantic color === */
+  --danger: #eb0000;
+  --danger-dim: rgba(235, 0, 0, 0.06);
 
-  --red: #eb0000;
-  --red-dim: rgba(235, 0, 0, 0.10);
-
-  --gold: #ffc035;
-  --gold-dim: rgba(255, 192, 53, 0.10);
-
+  /* === TEXT (grayscale only) === */
   --text: #ffffff;
   --text-2: #999999;
   --text-3: #666666;
   --text-4: #444444;
   --border: #1a1a1a;
-  --border-2: #2e2e2e;
 
   /* === FONTS === */
   --font-hed: 'Bebas Neue', sans-serif;
@@ -49,10 +44,6 @@
   --body: 16px;
   --body-lh: 1.7;
   --label: 13px;
-
-  /* === RADIUS (always 0) === */
   --radius: 0px;
-
-  /* === LETTER SPACING === */
   --hed-tracking: 0.04em;
 }
